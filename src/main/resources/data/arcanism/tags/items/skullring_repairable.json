@@ -1,0 +1,10 @@
+{
+	"replace": false,
+	"values": [
+		"arcanism:bone_sword",
+		"arcanism:bone_pickaxe",
+		"arcanism:bone_shovel",
+		"arcanism:bone_hoe",
+		"arcanism:bone_axe"
+	]
+}

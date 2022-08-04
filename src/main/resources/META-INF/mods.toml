@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[40,)"
+license = "MIT"
+[[mods]]
+    modId = "arcanism"
+    version = "${file.jarVersion}"
+    displayName = "Arcanism"
+    description = '''
+
+    '''
+
+[[dependencies.arcanism]]
+    modId = "forge"
+    mandatory = true
+    versionRange = "[40,)"
+    ordering = "NONE"
+    side = "BOTH"
+
+[[dependencies.arcanism]]
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.18.2,1.19)"
+    ordering = "NONE"
+    side = "BOTH"
+
+[[dependencies.arcanism]]
+    modId = "patchouli"
+    mandatory = true
+    versionRange = "[1.18.2-67,)"
+    ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.arcanism]]
+    modId="curios"
+    mandatory=true
+    versionRange="[1.18.2-5.0.7.1,)"
+    ordering = "AFTER"
+    side = "BOTH"

@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"XOX",
+		"XOX"
+	],
+	"key": {
+		"X": {
+			"item": "arcanism:blackwood_planks"
+		},
+		"O": {
+			"item": "arcanism:blackwood_twig"
+		}
+	},
+	"result": {
+		"item": "arcanism:blackwood_fence",
+		"count": 3
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"type": "arcanism:mortar_and_pestle",
+	"ingredients": [
+		{
+			"item": "minecraft:redstone"
+		},
+		{
+			"item": "minecraft:lapis_lazuli"
+		}
+	],
+	"output": {
+		"item": "arcanism:arcane_powder",
+		"count": 1
+	}
+}

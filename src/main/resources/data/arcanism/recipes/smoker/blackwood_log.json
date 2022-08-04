@@ -1,0 +1,11 @@
+{
+    "type": "minecraft:smoking",
+    "ingredient": [
+        {
+            "tag": "minecraft:logs"
+        }
+    ],
+    "result": {
+      "item": "arcanism:blackwood_log"
+    }
+}

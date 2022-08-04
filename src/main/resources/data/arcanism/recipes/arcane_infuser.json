@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" X ",
+		"COC",
+		"OOO"
+	],
+	"key": {
+		"O": {
+			"item": "arcanism:blackwood_planks"
+		},
+		"X": {
+			"item": "arcanism:arcane_powder"
+		},
+		"C": {
+			"item": "arcanism:aurum_ingot"
+		}
+	},
+	"result": {
+		"item": "arcanism:arcane_infuser"
+	}
+}

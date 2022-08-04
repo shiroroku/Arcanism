@@ -1,0 +1,7 @@
+{
+    "name": "Worn Notebook",
+    "landing_text": "LANDING TEXT",
+	"model": "arcanism:worn_notebook",
+	"creative_tab": "arcanism",
+    "version": 1
+}

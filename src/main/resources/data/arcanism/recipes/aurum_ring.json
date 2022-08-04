@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" # ",
+		"# #",
+		" # "
+	],
+	"key": {
+		"#": {
+			"item": "arcanism:aurum_ingot"
+		}
+	},
+	"result": {
+		"item": "arcanism:aurum_ring"
+	}
+}

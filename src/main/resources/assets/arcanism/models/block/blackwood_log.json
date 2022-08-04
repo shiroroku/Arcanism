@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "arcanism:blocks/blackwood_log_end",
+		"side": "arcanism:blocks/blackwood_log_side"
+	}
+}

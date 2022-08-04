@@ -1,0 +1,21 @@
+{
+	"type": "arcanism:mortar_and_pestle",
+	"ingredients": [
+		{
+			"item": "minecraft:gold_ingot"
+		},
+		{
+			"item": "minecraft:gold_ingot"
+		},
+		{
+			"item": "arcanism:arcane_powder"
+		},
+		{
+			"item": "minecraft:copper_ingot"
+		}
+	],
+	"output": {
+		"item": "arcanism:aurum_blend",
+		"count": 2
+	}
+}

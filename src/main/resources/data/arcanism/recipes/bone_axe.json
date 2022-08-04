@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "XX",
+        "X#",
+        " #"
+    ],
+    "key": {
+        "#": {
+            "item": "arcanism:blackwood_twig"
+        },
+        "X": {
+            "tag": "forge:bones"
+        }
+    },
+    "result": {
+        "item": "arcanism:bone_axe"
+    }
+}

@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/fence_side",
+	"textures": {
+		"texture": "arcanism:blocks/blackwood_planks"
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"XXX",
+		"XXX"
+	],
+	"key": {
+		"X": {
+			"item": "arcanism:blackwood_planks"
+		}
+	},
+	"result": {
+		"item": "arcanism:blackwood_trapdoor",
+		"count": 2
+	}
+}

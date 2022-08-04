@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"type=bottom": {
+			"model": "arcanism:block/blackwood_slab"
+		},
+		"type=double": {
+			"model": "arcanism:block/blackwood_planks"
+		},
+		"type=top": {
+			"model": "arcanism:block/blackwood_slab_top"
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"type": "minecraft:blasting",
+	"ingredient": {
+		"item": "arcanism:aurum_blend"
+	},
+	"result": "arcanism:aurum_ingot",
+	"experience": 1.0,
+	"cookingtime": 100
+}

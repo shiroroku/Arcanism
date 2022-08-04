@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "arcanism:blackwood_log"
+        }
+    ],
+    "result": {
+        "item": "arcanism:blackwood_planks",
+        "count": 4
+    }
+}

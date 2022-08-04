@@ -1,0 +1,6 @@
+{
+    "parent": "arcanism:item/blackwood_bow",
+    "textures": {
+        "layer0": "arcanism:items/blackwood_bow_pulling_0"
+    }
+}

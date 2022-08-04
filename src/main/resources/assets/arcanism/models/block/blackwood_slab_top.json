@@ -1,0 +1,8 @@
+{
+	"parent": "minecraft:block/slab_top",
+	"textures": {
+		"bottom": "arcanism:blocks/blackwood_planks",
+		"top": "arcanism:blocks/blackwood_planks",
+		"side": "arcanism:blocks/blackwood_planks"
+	}
+}

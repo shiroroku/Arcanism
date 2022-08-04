@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"X  ",
+		"XX ",
+		"XXX"
+	],
+	"key": {
+		"X": {
+			"item": "arcanism:blackwood_planks"
+		}
+	},
+	"result": {
+		"item": "arcanism:blackwood_stairs",
+		"count": 4
+	}
+}

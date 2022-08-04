@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"OX ",
+		"X X",
+		" X "
+	],
+	"key": {
+		"O": {
+			"item": "minecraft:bone_block"
+		},
+		"X": {
+			"item": "arcanism:blackwood_log"
+		}
+	},
+	"result": {
+		"item": "arcanism:skull_ring"
+	}
+}

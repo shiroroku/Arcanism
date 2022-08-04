@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"  X",
+		"OCO",
+		"OOO"
+	],
+	"key": {
+		"O": {
+			"tag": "forge:stone"
+		},
+		"X": {
+			"tag": "forge:rods/wooden"
+		},
+		"C": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result": {
+		"item": "arcanism:mortar_and_pestle"
+	}
+}
