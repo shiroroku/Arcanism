@@ -37,8 +37,10 @@ public class SkullRingItem extends Item {
 		if (ModUtil.hasItem(player, ItemRegistry.skull_ring.get(), true) && ModUtil.hasItem(player, Items.BONE_MEAL, false)) {
 			ModUtil.getFirstItem(player, Items.BONE_MEAL, false).ifPresent(bonemeal -> {
 				ModUtil.getItemsOfTag(player, repairable).stream().filter(ItemStack::isDamaged).findFirst().ifPresent(item -> {
-					bonemeal.shrink(1);
-					item.setDamageValue(item.getDamageValue() - 15);
+					if (item.getDamageValue() >= 15) {
+						bonemeal.shrink(1);
+						item.setDamageValue(item.getDamageValue() - 15);
+					}
 				});
 			});
 		}
