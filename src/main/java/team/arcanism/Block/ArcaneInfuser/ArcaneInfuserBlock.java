@@ -1,15 +1,19 @@
 package team.arcanism.Block.ArcaneInfuser;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -18,9 +22,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
+import team.arcanism.Arcanism;
 import team.arcanism.ModUtil;
 
 public class ArcaneInfuserBlock extends Block implements EntityBlock {
+
+	private static final TagKey<Item> activation_items = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Arcanism.MODID, "infuser_activators"));
+
 	public ArcaneInfuserBlock(Properties prop) {
 		super(prop);
 	}
@@ -45,7 +53,7 @@ public class ArcaneInfuserBlock extends Block implements EntityBlock {
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (!level.isClientSide) {
 			if (level.getBlockEntity(pos) instanceof ArcaneInfuserBlockEntity infuser) {
-				if (player.isCrouching()) {
+				if (player.getItemInHand(hand).getTags().anyMatch(t -> (t.equals(activation_items)))) {
 					infuser.tryCraft(player);
 				} else {
 					MenuProvider menuProvider = new MenuProvider() {
