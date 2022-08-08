@@ -1,7 +1,6 @@
 package team.arcanism;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -9,7 +8,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,6 +24,7 @@ import team.arcanism.Render.AetherBarRender;
 
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber(modid = Arcanism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class SetupClient {
@@ -59,23 +58,28 @@ public class SetupClient {
 
 	@SubscribeEvent
 	public static void onItemColorHandler(ColorHandlerEvent.Item event) {
-		event.getItemColors().register(new ItemColor() {
-			@Override
-			public int getColor(ItemStack stack, int tintIndex) {
-				if (tintIndex == 0) {
-					AtomicInteger badEffectCount = new AtomicInteger();
-					ElixirUtil.getFromNBT(stack).forEach((mobEffect, values) -> {
-						if (!mobEffect.isBeneficial()) {
-							badEffectCount.getAndIncrement();
-						}
-					});
+		event.getItemColors().register((stack, tintIndex) -> {
+			if (tintIndex == 0) {
+				//AtomicInteger badEffectCount = new AtomicInteger();
+				AtomicReference<Color> mixedColor = new AtomicReference<>();
+				ElixirUtil.getFromNBT(stack).forEach((mobEffect, values) -> {
+					if (mixedColor.get() == null) {
+						mixedColor.set(new Color(mobEffect.getColor()));
+					} else {
+						mixedColor.set(ModUtil.blendColor(new Color(mobEffect.getColor()), mixedColor.get(), 0.5f));
+					}
 
-					return ModUtil.blendColor(new Color(60, 60, 255), new Color(255, 60, 60), badEffectCount.get() <= 0 ? 0 : (float) badEffectCount.get() / 3f).getRGB();
-					//return new Color(255, 255, 255).getRGB();
+					//if (!mobEffect.isBeneficial()) {
+					//	badEffectCount.getAndIncrement();
+					//}
+				});
+
+				if (mixedColor.get() != null) {
+					return mixedColor.get().brighter().getRGB();
 				}
-				return 16777215;
+				//return ModUtil.blendColor(new Color(60, 60, 255), new Color(255, 60, 60), badEffectCount.get() <= 0 ? 0 : (float) badEffectCount.get() / 3f).getRGB();
 			}
-
+			return 16777215;
 		}, ItemRegistry.elixir.get());
 	}
 
