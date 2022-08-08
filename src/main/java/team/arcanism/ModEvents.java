@@ -27,7 +27,7 @@ public class ModEvents {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		SkullRingItem.handlePlayerTick(event);
-		AetherCapability.passiveRegen(event);
+		AetherCapability.handleRegeneration(event);
 	}
 
 	@SubscribeEvent

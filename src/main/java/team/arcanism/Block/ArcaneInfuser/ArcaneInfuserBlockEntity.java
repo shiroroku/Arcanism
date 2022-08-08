@@ -68,7 +68,7 @@ public class ArcaneInfuserBlockEntity extends BlockEntity {
 							}
 							aether.spend(recipe.getAetherCost());
 							CapabilityRegistry.sendAetherPacket(player);
-							((ServerLevel) level).playSound(null, getBlockPos(), SoundRegistry.arcane_infuser.get(), SoundSource.BLOCKS, 0.5f, 1f - level.random.nextFloat() * 0.2f);
+							level.playSound(null, getBlockPos(), SoundRegistry.arcane_infuser.get(), SoundSource.BLOCKS, 0.5f, 1f - level.random.nextFloat() * 0.2f);
 							for (int i = 0; i < 10; i++) {
 								((ServerLevel) level).sendParticles(ParticleTypes.FIREWORK, getBlockPos().getX() + level.random.nextFloat(), getBlockPos().getY() + 1 + level.random.nextFloat() * 0.5, getBlockPos().getZ() + level.random.nextFloat(), 1, 0.0D, 0D, 0.0D, 0.01);
 							}

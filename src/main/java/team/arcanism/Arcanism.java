@@ -18,6 +18,7 @@ public class Arcanism {
 	public Arcanism() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+		EffectRegistry.EFFECTS.register(eventBus);
 		ItemRegistry.ITEMS.register(eventBus);
 		BlockRegistry.BLOCKS.register(eventBus);
 		EntityRegistry.ENTITIES.register(eventBus);

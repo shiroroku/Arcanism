@@ -11,6 +11,9 @@ import net.minecraftforge.fml.LogicalSide;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.arcanism.Registry.CapabilityRegistry;
+import team.arcanism.Registry.EffectRegistry;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AetherCapability implements IAether {
 
@@ -58,15 +61,46 @@ public class AetherCapability implements IAether {
 		this.set(get() + amount);
 	}
 
-	public static void passiveRegen(TickEvent.PlayerTickEvent event) {
-		if (event.player.tickCount % 80 == 0 && event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START) {
+	public static void handleRegeneration(TickEvent.PlayerTickEvent event) {
+		if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START) {
 
+			AtomicBoolean doUpdate = new AtomicBoolean(false);
 			CapabilityRegistry.getAether(event.player).ifPresent(cap -> {
-				float passiveCombined = cap.getMax() * 0.01f;
+				float combined = 0f;
 
-				cap.add(passiveCombined);
+				//Passive + 1 % every 4 seconds
+				if (event.player.tickCount % 80 == 0) {
+					combined = cap.getMax() * 0.01f;
+				}
+				//Effect + 4 % * potency every second
+				if (event.player.tickCount % 20 == 0) {
+					if (event.player.hasEffect(EffectRegistry.aether_regen.get())) {
+						combined += cap.getMax() * (event.player.getEffect(EffectRegistry.aether_regen.get()).getAmplifier() * 0.04f);
+					}
+				}
+
+				//Actions that hinder regeneration:
+				//sprinting
+				if (event.player.isSprinting()) {
+					combined *= 0.5f;
+				}
+				//less than 75% food
+				if (event.player.getFoodData().getFoodLevel() <= 15) {
+					combined *= 0.5f;
+				}
+				//blocking
+				if (event.player.isBlocking()) {
+					combined *= 0.75f;
+				}
+
+				if (combined != 0) {
+					doUpdate.set(true);
+					cap.add(combined);
+				}
 			});
-			CapabilityRegistry.sendAetherPacket(event.player);
+			if (doUpdate.get()) {
+				CapabilityRegistry.sendAetherPacket(event.player);
+			}
 		}
 	}
 

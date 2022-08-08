@@ -6,5 +6,5 @@ import net.minecraft.world.effect.MobEffect;
 import java.util.TreeMap;
 
 public interface IElixirIngredient {
-	public TreeMap<Integer, Tuple<MobEffect, Integer>> getEffect();
+	TreeMap<Integer, Tuple<MobEffect, Integer>> getEffect();
 }
