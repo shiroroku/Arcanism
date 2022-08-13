@@ -7,10 +7,10 @@
 	],
 	"key": {
 		"#": {
-			"item": "arcanism:aurum_nugget"
+			"item": "arcanism:urgold_ingot"
 		}
 	},
 	"result": {
-		"item": "arcanism:aurum_ingot"
+		"item": "arcanism:urgold_block"
 	}
 }

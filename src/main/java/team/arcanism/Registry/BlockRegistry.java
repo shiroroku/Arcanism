@@ -32,7 +32,7 @@ public class BlockRegistry {
 	public static final RegistryObject<Block> blackwood_fence = regBlockItem("blackwood_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(blackwood_planks.get())));
 	public static final RegistryObject<Block> arcane_infuser = regBlockItem("arcane_infuser", () -> new ArcaneInfuserBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_GRAY).strength(4.0f).sound(SoundType.WOOD).noOcclusion()));
 	public static final RegistryObject<Block> mortar_and_pestle = regBlockItem("mortar_and_pestle", () -> new MortarPestleBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).strength(4.0f).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> aurum_block = regBlockItem("aurum_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).strength(3.0F, 6.0F).sound(SoundType.METAL)));
+	public static final RegistryObject<Block> urgold_block = regBlockItem("urgold_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).strength(3.0F, 6.0F).sound(SoundType.METAL)));
 
 	/**
 	 * Creates and returns a Block while also creating an Item for that block.

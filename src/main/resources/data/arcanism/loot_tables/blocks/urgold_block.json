@@ -7,7 +7,7 @@
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "arcanism:aurum_block"
+                    "name": "arcanism:urgold_block"
                 }
             ]
         }

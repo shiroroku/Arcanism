@@ -1,16 +1,16 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
-		"###",
-		"###",
-		"###"
+		" # ",
+		"# #",
+		" # "
 	],
 	"key": {
 		"#": {
-			"item": "arcanism:aurum_ingot"
+			"item": "arcanism:urgold_ingot"
 		}
 	},
 	"result": {
-		"item": "arcanism:aurum_block"
+		"item": "arcanism:urgold_ring"
 	}
 }

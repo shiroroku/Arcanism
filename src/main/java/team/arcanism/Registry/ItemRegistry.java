@@ -20,6 +20,7 @@ import team.arcanism.Arcanism;
 import team.arcanism.Elixir.ElixirIngredientBlockItem;
 import team.arcanism.Elixir.ElixirIngredientItem;
 import team.arcanism.Elixir.ElixirItem;
+import team.arcanism.Item.BlackwoodBow;
 import team.arcanism.Item.BoneDagger.BoneDaggerItem;
 import team.arcanism.Item.BoneSwordItem;
 import team.arcanism.Item.SkullRingItem;
@@ -46,11 +47,11 @@ public class ItemRegistry {
 
 	//Basic items
 	public static final RegistryObject<Item> aethersteel_ingot = ITEMS.register("aethersteel_ingot", () -> new Item(defProp()));
-	public static final RegistryObject<Item> aurum_blend = simpleItem("aurum_blend");
-	public static final RegistryObject<Item> aurum_ingot = simpleItem("aurum_ingot");
-	public static final RegistryObject<Item> aurum_nugget = simpleItem("aurum_nugget");
-	public static final RegistryObject<Item> aurum_ring = simpleItem("aurum_ring", defProp().stacksTo(1));
-	public static final RegistryObject<Item> blackwood_bow = ITEMS.register("blackwood_bow", () -> new BowItem(defProp().durability(400)));
+	public static final RegistryObject<Item> urgold_blend = simpleItem("urgold_blend");
+	public static final RegistryObject<Item> urgold_ingot = simpleItem("urgold_ingot");
+	public static final RegistryObject<Item> urgold_nugget = simpleItem("urgold_nugget");
+	public static final RegistryObject<Item> urgold_ring = simpleItem("urgold_ring", defProp().stacksTo(1));
+	public static final RegistryObject<Item> blackwood_bow = ITEMS.register("blackwood_bow", () -> new BlackwoodBow(defProp().durability(400)));
 	public static final RegistryObject<Item> blackwood_twig = ITEMS.register("blackwood_twig", () -> new Item(defProp()) {
 		@Override
 		public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {

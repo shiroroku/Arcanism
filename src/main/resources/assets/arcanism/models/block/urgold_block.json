@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "arcanism:blocks/aurum_block"
+    "all": "arcanism:blocks/urgold_block"
   }
 }

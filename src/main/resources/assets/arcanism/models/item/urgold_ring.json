@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "arcanism:items/aurum_ring"
+        "layer0": "arcanism:items/urgold_ring"
     }
 }

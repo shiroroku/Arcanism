@@ -2,11 +2,11 @@
 	"type": "minecraft:crafting_shapeless",
 	"ingredients": [
 		{
-			"item": "arcanism:aurum_block"
+			"item": "arcanism:urgold_block"
 		}
 	],
 	"result": {
-		"item": "arcanism:aurum_ingot",
+		"item": "arcanism:urgold_ingot",
 		"count": 9
 	}
 }
