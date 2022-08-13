@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" ZO",
+		" FZ",
+		"X  "
+	],
+	"key": {
+		"O": {
+			"item": "arcanism:arcane_powder"
+		},
+		"X": {
+			"item": "arcanism:blackwood_twig"
+		},
+		"F": {
+			"item": "arcanism:urgold_ingot"
+		},
+		"Z": {
+			"item": "arcanism:urgold_nugget"
+		}
+	},
+	"result": {
+		"item": "arcanism:blackwood_wand"
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" XC",
+		"XOC",
+		" XC"
+	],
+	"key": {
+		"O": {
+			"item": "arcanism:arcane_powder"
+		},
+		"X": {
+			"item": "arcanism:blackwood_twig"
+		},
+		"C": {
+			"item": "minecraft:string"
+		}
+	},
+	"result": {
+		"item": "arcanism:blackwood_bow"
+	}
+}
