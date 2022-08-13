@@ -39,14 +39,8 @@ public class ItemRegistry {
 	public static final RegistryObject<Item> bone_shovel = ITEMS.register("bone_shovel", () -> new ShovelItem(ToolTiers.bone, 1.5f, -3f, defProp()));
 	public static final RegistryObject<Item> bone_hoe = ITEMS.register("bone_hoe", () -> new HoeItem(ToolTiers.bone, -1, -2f, defProp()));
 	public static final RegistryObject<Item> bone_dagger = ITEMS.register("bone_dagger", () -> new BoneDaggerItem(defProp().stacksTo(16)));
-	public static final RegistryObject<Item> aethersteel_sword = ITEMS.register("aethersteel_sword", () -> new SwordItem(ToolTiers.aethersteel, 3, -1.8f, defProp()));
-	public static final RegistryObject<Item> aethersteel_axe = ITEMS.register("aethersteel_axe", () -> new AxeItem(ToolTiers.aethersteel, 7, -3.2f, defProp()));
-	public static final RegistryObject<Item> aethersteel_pickaxe = ITEMS.register("aethersteel_pickaxe", () -> new PickaxeItem(ToolTiers.aethersteel, 1, -2.8f, defProp()));
-	public static final RegistryObject<Item> aethersteel_shovel = ITEMS.register("aethersteel_shovel", () -> new ShovelItem(ToolTiers.aethersteel, 1.5f, -3f, defProp()));
-	public static final RegistryObject<Item> aethersteel_hoe = ITEMS.register("aethersteel_hoe", () -> new HoeItem(ToolTiers.aethersteel, -1, -2f, defProp()));
 
 	//Basic items
-	public static final RegistryObject<Item> aethersteel_ingot = ITEMS.register("aethersteel_ingot", () -> new Item(defProp()));
 	public static final RegistryObject<Item> urgold_blend = simpleItem("urgold_blend");
 	public static final RegistryObject<Item> urgold_ingot = simpleItem("urgold_ingot");
 	public static final RegistryObject<Item> urgold_nugget = simpleItem("urgold_nugget");
@@ -136,38 +130,6 @@ public class ItemRegistry {
 			@Override
 			public Ingredient getRepairIngredient() {
 				return Ingredient.of(Tags.Items.BONES);
-			}
-		};
-
-		private static final Tier aethersteel = new Tier() {
-			@Override
-			public int getUses() {
-				return 300;
-			}
-
-			@Override
-			public float getSpeed() {
-				return 6.0f;
-			}
-
-			@Override
-			public float getAttackDamageBonus() {
-				return 2.0f;
-			}
-
-			@Override
-			public int getLevel() {
-				return 2;
-			}
-
-			@Override
-			public int getEnchantmentValue() {
-				return 14;
-			}
-
-			@Override
-			public Ingredient getRepairIngredient() {
-				return Ingredient.of(aethersteel_ingot.get());
 			}
 		};
 	}
