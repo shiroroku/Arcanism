@@ -6,8 +6,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -43,7 +47,7 @@ public class ArcaneInfuserBlockEntity extends BlockEntity {
 			List<ItemStack> items = new ArrayList<>();
 			List<Ingredient> requirements = recipe.getInputs();
 
-			for (int slot = 0; slot < itemHandler.getSlots() - 1; slot++) {
+			for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
 				items.add(itemHandler.getStackInSlot(slot).copy());
 			}
 
@@ -55,13 +59,12 @@ public class ArcaneInfuserBlockEntity extends BlockEntity {
 					IAether aether = CapabilityRegistry.getAether(player).orElseGet(null);
 					if (aether != null) {
 						if (aether.canSpend(recipe.getAetherCost())) {
-							ItemStack outputTest = itemHandler.insertItem(9, recipe.getOutput().copy(), true);
-							//if we dont fit the whole output then return
-							if (outputTest.isEmpty()) {
-								itemHandler.insertItem(9, recipe.getOutput().copy(), false);
-							} else {
-								return;
-							}
+
+							//spawn output in world, and update block for blockentity renderer
+							ItemEntity outputItem = new ItemEntity(level, getBlockPos().getX() + 0.5f, getBlockPos().getY() + 1, getBlockPos().getZ() + 0.5f, recipe.getOutput().copy());
+							level.addFreshEntity(outputItem);
+							level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
+
 							//remove 1 from each input (ingredients dont support count (I THINK?))
 							for (int slot = 0; slot < itemHandler.getSlots() - 1; slot++) {
 								itemHandler.extractItem(slot, 1, false);
@@ -72,7 +75,6 @@ public class ArcaneInfuserBlockEntity extends BlockEntity {
 							for (int i = 0; i < 10; i++) {
 								((ServerLevel) level).sendParticles(ParticleTypes.FIREWORK, getBlockPos().getX() + level.random.nextFloat(), getBlockPos().getY() + 1 + level.random.nextFloat() * 0.5, getBlockPos().getZ() + level.random.nextFloat(), 1, 0.0D, 0D, 0.0D, 0.01);
 							}
-
 						} else {
 							player.displayClientMessage(new TranslatableComponent("status.arcanism.no_aether").withStyle(ChatFormatting.RED), true);
 						}
@@ -82,6 +84,27 @@ public class ArcaneInfuserBlockEntity extends BlockEntity {
 			}
 		}
 		player.displayClientMessage(new TranslatableComponent("status.arcanism.wrong").withStyle(ChatFormatting.RED), true);
+	}
+
+	public boolean hasValidRecipe() {
+		for (final ArcaneInfuserRecipe recipe : level.getRecipeManager().getAllRecipesFor(ArcaneInfuserRecipe.TYPE)) {
+			List<ItemStack> items = new ArrayList<>();
+			List<Ingredient> requirements = recipe.getInputs();
+
+			for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
+				items.add(itemHandler.getStackInSlot(slot).copy());
+			}
+
+			//ingredient 0 is actually center slot for table, make sure its correct
+			if (requirements.get(0).test(itemHandler.getStackInSlot(0))) {
+				//check if we have all inputs
+				if (RecipeMatcher.findMatches(items, requirements) != null) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	@Override
@@ -112,8 +135,20 @@ public class ArcaneInfuserBlockEntity extends BlockEntity {
 		tag.put("items", itemHandler.serializeNBT());
 	}
 
+	@Override
+	public CompoundTag getUpdateTag() {
+		CompoundTag nbt = super.getUpdateTag();
+		this.saveAdditional(nbt);
+		return nbt;
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
+
 	private ItemStackHandler createItemHandler() {
-		return new ItemStackHandler(10) {
+		return new ItemStackHandler(9) {
 
 			@Override
 			protected void onContentsChanged(int slot) {

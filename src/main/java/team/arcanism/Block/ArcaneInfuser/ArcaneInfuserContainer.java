@@ -25,17 +25,15 @@ public class ArcaneInfuserContainer extends AbstractContainerMenu {
 
 		if (blockEntity != null) {
 			blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-				addSlot(new SlotItemHandler(handler, 0, 44, 35));
-				addSlot(new SlotItemHandler(handler, 1, 44, 8));
-				addSlot(new SlotItemHandler(handler, 2, 66, 13));
-				addSlot(new SlotItemHandler(handler, 3, 71, 35));
-				addSlot(new SlotItemHandler(handler, 4, 66, 57));
-				addSlot(new SlotItemHandler(handler, 5, 44, 62));
-				addSlot(new SlotItemHandler(handler, 6, 22, 57));
-				addSlot(new SlotItemHandler(handler, 7, 17, 35));
-				addSlot(new SlotItemHandler(handler, 8, 22, 13));
-
-				addSlot(new SlotItemHandler(handler, 9, 124, 35));
+				addSlot(new SlotItemHandler(handler, 0, 80, 35));
+				addSlot(new SlotItemHandler(handler, 1, 80, 8));
+				addSlot(new SlotItemHandler(handler, 2, 102, 13));
+				addSlot(new SlotItemHandler(handler, 3, 107, 35));
+				addSlot(new SlotItemHandler(handler, 4, 102, 57));
+				addSlot(new SlotItemHandler(handler, 5, 80, 62));
+				addSlot(new SlotItemHandler(handler, 6, 58, 57));
+				addSlot(new SlotItemHandler(handler, 7, 53, 35));
+				addSlot(new SlotItemHandler(handler, 8, 58, 13));
 			});
 		}
 
@@ -57,6 +55,10 @@ public class ArcaneInfuserContainer extends AbstractContainerMenu {
 		}
 	}
 
+	public boolean hasRecipe() {
+		return ((ArcaneInfuserBlockEntity) blockEntity).hasValidRecipe();
+	}
+
 	@Override
 	public ItemStack quickMoveStack(Player playerIn, int index) {
 		ItemStack copy = ItemStack.EMPTY;
@@ -65,14 +67,14 @@ public class ArcaneInfuserContainer extends AbstractContainerMenu {
 			ItemStack clickedItem = clickedSlot.getItem();
 			copy = clickedItem.copy();
 			//is in table
-			if (index < 10) {
+			if (index < 9) {
 				//try move to inventory
-				if (!this.moveItemStackTo(clickedItem, 10, this.slots.size(), true)) {
+				if (!this.moveItemStackTo(clickedItem, 9, this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
 			} else {
 				//try move to table
-				if (!this.moveItemStackTo(clickedItem, 0, 10, false)) {
+				if (!this.moveItemStackTo(clickedItem, 0, 9, false)) {
 					return ItemStack.EMPTY;
 				}
 			}

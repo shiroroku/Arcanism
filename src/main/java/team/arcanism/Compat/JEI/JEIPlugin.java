@@ -56,12 +56,12 @@ public class JEIPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registry) {
-		registry.addRecipeTransferHandler(ArcaneInfuserContainer.class, arcane_infuser, 0, 9, 10, 36);
+		registry.addRecipeTransferHandler(ArcaneInfuserContainer.class, arcane_infuser, 0, 9, 10, 35);
 	}
 
 	@Override
 	public void registerGuiHandlers(IGuiHandlerRegistration registry) {
-		registry.addRecipeClickArea(ArcaneInfuserScreen.class, 90, 34, 24, 17, arcane_infuser);
+		registry.addRecipeClickArea(ArcaneInfuserScreen.class, 80, 26, 16, 6, arcane_infuser);
 	}
 
 	private List<JEIArcaneInfuserCategory.Wrapper> convertInfuserRecipes() {

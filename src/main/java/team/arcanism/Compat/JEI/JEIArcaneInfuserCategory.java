@@ -26,7 +26,7 @@ import java.util.List;
 public class JEIArcaneInfuserCategory implements IRecipeCategory<JEIArcaneInfuserCategory.Wrapper> {
 
 	private final IDrawable bg, icon;
-	public static final ResourceLocation screen = new ResourceLocation(Arcanism.MODID, "textures/gui/arcane_infuser.png");
+	public static final ResourceLocation screen = new ResourceLocation(Arcanism.MODID, "textures/gui/arcane_infuser_jei.png");
 
 	@SuppressWarnings("removal")
 	public JEIArcaneInfuserCategory(IGuiHelper guihelper) {

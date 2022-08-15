@@ -8,7 +8,7 @@
 			"item": "minecraft:gold_ingot"
 		},
 		{
-			"item": "minecraft:iron_nugget"
+			"item": "minecraft:empty"
 		},
 		{
 			"item": "minecraft:gold_ingot"
@@ -20,13 +20,13 @@
 			"item": "minecraft:gold_ingot"
 		},
 		{
-			"item": "minecraft:golden_apple"
+			"item": "minecraft:empty"
 		},
 		{
 			"item": "minecraft:gold_ingot"
 		},
 		{
-			"item": "minecraft:iron_ingot"
+			"item": "minecraft:empty"
 		}
 	],
 	"output": {

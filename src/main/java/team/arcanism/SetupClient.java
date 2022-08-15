@@ -14,6 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import team.arcanism.Block.ArcaneInfuser.ArcaneInfuserRenderer;
 import team.arcanism.Block.ArcaneInfuser.ArcaneInfuserScreen;
 import team.arcanism.Block.MortarPestle.MortarPestleRenderer;
 import team.arcanism.Elixir.ElixirUtil;
@@ -23,7 +24,6 @@ import team.arcanism.Registry.*;
 import team.arcanism.Render.AetherBarRender;
 
 import java.awt.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber(modid = Arcanism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -41,6 +41,7 @@ public class SetupClient {
 
 			MenuScreens.register(ContainerRegistry.arcanist_workbench.get(), ArcaneInfuserScreen::new);
 
+			BlockEntityRenderers.register(BlockEntityRegistry.arcane_infuser.get(), ArcaneInfuserRenderer::new);
 			BlockEntityRenderers.register(BlockEntityRegistry.mortar_and_pestle.get(), MortarPestleRenderer::new);
 
 			ItemProperties.register(ItemRegistry.blackwood_bow.get(), new ResourceLocation("pull"), (stack, level, living, id) -> {
@@ -90,6 +91,7 @@ public class SetupClient {
 			return;
 		}
 		event.addSprite(MortarPestleRenderer.pestle_texture);
+		event.addSprite(ArcaneInfuserRenderer.octogram);
 	}
 
 	@SubscribeEvent
