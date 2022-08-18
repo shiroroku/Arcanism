@@ -2,12 +2,14 @@ package team.arcanism;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.items.CapabilityItemHandler;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
@@ -94,6 +96,45 @@ public class ModUtil {
 		}
 
 		return items;
+	}
+
+	public static double bezierSwingEase(float t, float strength) {
+		t = Mth.clamp(t, 0f, 1f);
+		strength = Mth.clamp(strength, 0, 1);
+		Vec2 start = new Vec2(0, 0);
+		Vec2 end = new Vec2(1, 1);
+		Vec2 controlX = new Vec2(strength, -0.25f);
+		Vec2 controlY = new Vec2(1f - strength, 1);
+
+		Vec2 lbottom = lerpVec2(start, controlX, t);
+		Vec2 lcenter = lerpVec2(controlX, controlY, t);
+		Vec2 ltop = lerpVec2(controlY, end, t);
+
+		Vec2 li1 = lerpVec2(lbottom, lcenter, t);
+		Vec2 li2 = lerpVec2(lcenter, ltop, t);
+
+		Vec2 lfinal = lerpVec2(li1, li2, t);
+
+		return lfinal.y;
+	}
+
+	public static float bezierFadeOut(float t) {
+		t = Mth.clamp(t, 0f, 1f);
+		Vec2 start = new Vec2(0, 0);
+		Vec2 end = new Vec2(1, 1);
+		Vec2 control = new Vec2(0, 1f);
+
+		Vec2 l1 = lerpVec2(start, control, t);
+		Vec2 l2 = lerpVec2(control, end, t);
+		Vec2 lfinal = lerpVec2(l1, l2, t);
+		return lfinal.y;
+	}
+
+	public static Vec2 lerpVec2(Vec2 s, Vec2 e, float time) {
+		time = Mth.clamp(time, 0f, 1f);
+		float x = Mth.lerp(time, s.x, e.x);
+		float y = Mth.lerp(time, s.y, e.y);
+		return new Vec2(x, y);
 	}
 
 	public static Color blendColor(Color c1, Color c2, float ratio) {

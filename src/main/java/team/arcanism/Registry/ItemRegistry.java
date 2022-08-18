@@ -23,6 +23,7 @@ import team.arcanism.Elixir.ElixirItem;
 import team.arcanism.Item.BlackwoodBow;
 import team.arcanism.Item.BoneDagger.BoneDaggerItem;
 import team.arcanism.Item.BoneSwordItem;
+import team.arcanism.Item.MoonlightGreatsword.MoonlightGreatswordItem;
 import team.arcanism.Item.SkullRingItem;
 
 import java.util.TreeMap;
@@ -32,6 +33,7 @@ public class ItemRegistry {
 
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Arcanism.MODID);
 
+	public static final RegistryObject<Item> moonlight_greatsword = ITEMS.register("moonlight_greatsword", () -> new MoonlightGreatswordItem(defProp()));
 	//Toolsets
 	public static final RegistryObject<Item> bone_sword = ITEMS.register("bone_sword", () -> new BoneSwordItem(ToolTiers.bone, 3, -1.8f, defProp()));
 	public static final RegistryObject<Item> bone_axe = ITEMS.register("bone_axe", () -> new AxeItem(ToolTiers.bone, 7, -3.2f, defProp()));

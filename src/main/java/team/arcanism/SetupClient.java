@@ -19,6 +19,7 @@ import team.arcanism.Block.ArcaneInfuser.ArcaneInfuserScreen;
 import team.arcanism.Block.MortarPestle.MortarPestleRenderer;
 import team.arcanism.Elixir.ElixirUtil;
 import team.arcanism.Item.BoneDagger.BoneDaggerRenderer;
+import team.arcanism.Item.MoonlightGreatsword.MoonlightGreatswordSwingRenderer;
 import team.arcanism.Particle.StabAttackParticle;
 import team.arcanism.Registry.*;
 import team.arcanism.Render.AetherBarRender;
@@ -32,6 +33,8 @@ public class SetupClient {
 	@SubscribeEvent
 	public static void setup(final FMLClientSetupEvent event) {
 		MinecraftForge.EVENT_BUS.addListener(SetupClient::onRenderGameOverlay);
+		MinecraftForge.EVENT_BUS.addListener(MoonlightGreatswordSwingRenderer::onRenderHandEvent);
+		MinecraftForge.EVENT_BUS.addListener(MoonlightGreatswordSwingRenderer::onRenderPlayerEvent);
 		event.enqueueWork(() -> {
 			ItemBlockRenderTypes.setRenderLayer(BlockRegistry.blackwood_trapdoor.get(), RenderType.cutout());
 			ItemBlockRenderTypes.setRenderLayer(BlockRegistry.blackwood_door.get(), RenderType.cutout());

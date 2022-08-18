@@ -34,5 +34,6 @@
 	"jei.arcanism.aether_cost": "Aether : %f",
 	"effect.arcanism.aether_regen": "Aether Regeneration",
 	"status.arcanism.no_aether": "I don't have enough Aether",
-	"status.arcanism.wrong": "This doesn't seem right"
+	"status.arcanism.wrong": "This doesn't seem right",
+    "item.arcanism.moonlight_greatsword": "Moonlight Greatsword"
 }

@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/handheld",
+    "textures": {
+        "layer0": "arcanism:items/moonlight_greatsword"
+    }
+}
