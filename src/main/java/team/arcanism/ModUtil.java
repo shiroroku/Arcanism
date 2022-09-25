@@ -1,15 +1,20 @@
 package team.arcanism;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.items.CapabilityItemHandler;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
@@ -18,6 +23,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class ModUtil {
 
@@ -96,6 +102,47 @@ public class ModUtil {
 		}
 
 		return items;
+	}
+
+	public static List<Entity> getEntitiesInRange(Level worldin, BlockPos pos, float range) {
+		AABB aabb = new AABB(pos.getX() - range + 0.5, pos.getY() - range + 0.5f, pos.getZ() - range + 0.5, pos.getX() + range + 0.5, pos.getY() + range + 0.5f, pos.getZ() + range + 0.5);
+		List<Entity> entities = new ArrayList<>();
+		for (Entity e : worldin.getEntities((Entity) null, aabb)) {
+			if (e.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5f, pos.getZ() + 0.5) <= range * range) {
+				entities.add(e);
+			}
+		}
+		return entities;
+	}
+
+	public static HitResult getPlayerRaycast(Level level, Player player, ClipContext.Fluid clipping) {
+
+		//try entity
+		Vec3 eyePos = player.getEyePosition();
+		double reach = player.getReachDistance();
+		Vec3 vec35 = player.getViewVector(1.0F).scale((double) player.getReachDistance());
+		Vec3 vec32 = eyePos.add(vec35);
+		AABB aabb = player.getBoundingBox().expandTowards(vec35).inflate(1.0D);
+		Predicate<Entity> predicate = (entity) -> {
+			return !entity.isSpectator() && entity.isPickable();
+		};
+		double i = reach * reach;
+		EntityHitResult entityhitresult = ProjectileUtil.getEntityHitResult(player, eyePos, vec32, aabb, predicate, (double) i);
+		if (entityhitresult != null && eyePos.distanceToSqr(entityhitresult.getLocation()) <= i) {
+			return entityhitresult;
+		}
+
+		//try block
+		float f = player.getXRot();
+		float f1 = player.getYRot();
+		float f2 = Mth.cos(-f1 * ((float) Math.PI / 180F) - (float) Math.PI);
+		float f3 = Mth.sin(-f1 * ((float) Math.PI / 180F) - (float) Math.PI);
+		float f4 = -Mth.cos(-f * ((float) Math.PI / 180F));
+		float f5 = Mth.sin(-f * ((float) Math.PI / 180F));
+		float f6 = f3 * f4;
+		float f7 = f2 * f4;
+		Vec3 vec31 = eyePos.add((double) f6 * reach, (double) f5 * reach, (double) f7 * reach);
+		return level.clip(new ClipContext(eyePos, vec31, ClipContext.Block.OUTLINE, clipping, player));
 	}
 
 	public static double bezierSwingEase(float t, float strength) {

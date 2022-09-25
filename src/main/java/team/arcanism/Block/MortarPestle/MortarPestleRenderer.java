@@ -43,7 +43,7 @@ public class MortarPestleRenderer implements BlockEntityRenderer<MortarPestleBlo
 	@Override
 	public void render(MortarPestleBlockEntity blockEntity, float ptick, PoseStack stack, MultiBufferSource bufferSource, int p_112311_, int p_112312_) {
 		//dont render unless close for performance
-		if(Minecraft.getInstance().player.distanceToSqr(Vec3.atCenterOf(blockEntity.getBlockPos())) < Mth.square(16)) {
+		if (Minecraft.getInstance().player.distanceToSqr(Vec3.atCenterOf(blockEntity.getBlockPos())) < Mth.square(16)) {
 			stack.pushPose();
 			stack.translate(0.5, 0.27, 0.5);
 			stack.mulPose(Vector3f.ZP.rotationDegrees(90));

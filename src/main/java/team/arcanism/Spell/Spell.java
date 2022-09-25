@@ -1,47 +1,47 @@
 package team.arcanism.Spell;
 
-public abstract class Spell {
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import team.arcanism.Spell.Aspects.SpellAspect;
+import team.arcanism.Spell.Effects.SpellEffect;
+import team.arcanism.Spell.Forms.SpellForm;
 
-	public enum Shape {
-		PROJECTILE,
-		TOUCH,
-		SELF,
-		NOVA,
-		BEAM
-	}
+public class Spell {
 
-	public enum Aspect {
-		AETHER,
-		FIRE,
-		WATER,
-		ICE,
-		LIGHTNING,
-		EARTH
-	}
+	private final SpellForm form;
+	private final SpellEffect effect;
+	private final SpellAspect aspect;
 
-	public enum Effect {
-		BURST,
-	}
+	private final float duration;
+	private final float magnitude;
+	private final float radius;
 
-	public final Shape shape;
-	public final Effect effect;
-	public final Aspect aspect;
-
-	public Spell(Shape shape, Effect effect, Aspect aspect) {
-		this.shape = shape;
+	public Spell(SpellForm form, SpellEffect effect, SpellAspect aspect, float duration, float magnitude, float radius) {
+		this.form = form;
 		this.effect = effect;
 		this.aspect = aspect;
+		this.duration = duration;
+		this.magnitude = magnitude;
+		this.radius = radius;
 	}
 
-	public Shape getShape() {
-		return shape;
+	public void cast(Player player, ItemStack castingItem) {
+		form.collectTargetAndCast(player, castingItem, effect, aspect, duration, magnitude, radius);
 	}
 
-	public Effect getEffect() {
+	public float getCost(Player player, ItemStack castingItem) {
+		return form.getCost() + effect.getCost() + aspect.getCost();
+	}
+
+	public SpellForm getForm() {
+		return form;
+	}
+
+	public SpellEffect getEffect() {
 		return effect;
 	}
 
-	public Aspect getAspect() {
+	public SpellAspect getAspect() {
 		return aspect;
 	}
 

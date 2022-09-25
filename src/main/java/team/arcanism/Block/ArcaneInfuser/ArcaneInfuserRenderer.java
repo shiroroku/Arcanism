@@ -28,7 +28,7 @@ public class ArcaneInfuserRenderer implements BlockEntityRenderer<ArcaneInfuserB
 	@Override
 	public void render(ArcaneInfuserBlockEntity infuser, float ptick, PoseStack stack, MultiBufferSource bufferSource, int overlay, int light) {
 		//dont render unless close for performance
-		if(Minecraft.getInstance().player.distanceToSqr(Vec3.atCenterOf(infuser.getBlockPos())) < Mth.square(16)) {
+		if (Minecraft.getInstance().player.distanceToSqr(Vec3.atCenterOf(infuser.getBlockPos())) < Mth.square(16)) {
 
 			//render item on infuser
 			stack.pushPose();
@@ -64,7 +64,7 @@ public class ArcaneInfuserRenderer implements BlockEntityRenderer<ArcaneInfuserB
 			}
 
 			//update octogram every second instead of every tick
-			if (infuser.getLevel().getGameTime() % 20 == 0){
+			if (infuser.getLevel().getGameTime() % 20 == 0) {
 				showOctogram = infuser.hasValidRecipe();
 			}
 		}

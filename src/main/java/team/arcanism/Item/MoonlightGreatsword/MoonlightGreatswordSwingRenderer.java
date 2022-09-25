@@ -38,7 +38,6 @@ public class MoonlightGreatswordSwingRenderer {
 				stack.mulPose(Vector3f.ZP.rotationDegrees(90));
 				stack.mulPose(Vector3f.XN.rotationDegrees(20));
 
-
 			}
 		}
 

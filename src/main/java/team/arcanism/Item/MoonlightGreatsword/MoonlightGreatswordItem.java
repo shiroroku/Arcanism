@@ -10,6 +10,8 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeTier;
 import team.arcanism.Registry.ItemRegistry;
+import team.arcanism.Spell.Spell;
+import team.arcanism.Spell.SpellRegistry;
 
 public class MoonlightGreatswordItem extends SwordItem {
 	public MoonlightGreatswordItem(Properties prop) {
@@ -20,6 +22,8 @@ public class MoonlightGreatswordItem extends SwordItem {
 		ItemStack itemstack = player.getItemInHand(hand);
 
 		player.startUsingItem(hand);
+
+		new Spell(SpellRegistry.Forms.touch, SpellRegistry.Effects.imbue, SpellRegistry.Aspects.fire, 3, 3, 3).cast(player, player.getItemInHand(hand));
 
 		return super.use(level, player, hand);
 	}
