@@ -1,9 +1,9 @@
-package team.arcanism.Spell.Aspects;
+package team.arcanism.Spell.Old.Aspects;
 
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import team.arcanism.Spell.Effects.SpellEffect;
+import team.arcanism.Spell.Old.Effects.SpellEffect;
 
 import java.util.List;
 

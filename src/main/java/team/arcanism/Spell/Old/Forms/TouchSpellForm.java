@@ -1,4 +1,4 @@
-package team.arcanism.Spell.Forms;
+package team.arcanism.Spell.Old.Forms;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -11,8 +11,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import team.arcanism.ModUtil;
-import team.arcanism.Spell.Aspects.SpellAspect;
-import team.arcanism.Spell.Effects.SpellEffect;
+import team.arcanism.Spell.Old.Aspects.SpellAspect;
+import team.arcanism.Spell.Old.Effects.SpellEffect;
 
 import java.util.ArrayList;
 import java.util.List;

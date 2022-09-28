@@ -1,10 +1,10 @@
-package team.arcanism.Spell;
+package team.arcanism.Spell.Old;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import team.arcanism.Spell.Aspects.SpellAspect;
-import team.arcanism.Spell.Effects.SpellEffect;
-import team.arcanism.Spell.Forms.SpellForm;
+import team.arcanism.Spell.Old.Aspects.SpellAspect;
+import team.arcanism.Spell.Old.Effects.SpellEffect;
+import team.arcanism.Spell.Old.Forms.SpellForm;
 
 public class Spell {
 

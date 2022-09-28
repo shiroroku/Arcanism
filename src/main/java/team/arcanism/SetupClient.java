@@ -5,12 +5,9 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,7 +23,7 @@ import team.arcanism.Item.MoonlightGreatsword.MoonlightGreatswordSwingRenderer;
 import team.arcanism.Particle.StabAttackParticle;
 import team.arcanism.Registry.*;
 import team.arcanism.Render.AetherBarRender;
-import team.arcanism.Render.SpellEffectLayer;
+import team.arcanism.Spell.SpellRenderer;
 
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -73,6 +70,7 @@ public class SetupClient {
 	@SubscribeEvent
 	public static void registerRenderer(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(EntityRegistry.bone_dagger.get(), BoneDaggerRenderer::new);
+		event.registerEntityRenderer(EntityRegistry.spell.get(), SpellRenderer::new);
 	}
 
 	@SubscribeEvent

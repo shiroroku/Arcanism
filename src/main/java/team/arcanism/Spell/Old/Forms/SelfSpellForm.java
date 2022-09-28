@@ -1,4 +1,4 @@
-package team.arcanism.Spell.Forms;
+package team.arcanism.Spell.Old.Forms;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -6,8 +6,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import team.arcanism.ModUtil;
-import team.arcanism.Spell.Aspects.SpellAspect;
-import team.arcanism.Spell.Effects.SpellEffect;
+import team.arcanism.Spell.Old.Aspects.SpellAspect;
+import team.arcanism.Spell.Old.Effects.SpellEffect;
 
 import java.util.ArrayList;
 import java.util.List;

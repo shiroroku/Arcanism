@@ -1,14 +1,14 @@
-package team.arcanism.Spell;
+package team.arcanism.Spell.Old;
 
 import net.minecraft.resources.ResourceLocation;
 import team.arcanism.Arcanism;
-import team.arcanism.Spell.Aspects.FireSpellAspect;
-import team.arcanism.Spell.Aspects.SpellAspect;
-import team.arcanism.Spell.Effects.ImbueSpellEffect;
-import team.arcanism.Spell.Effects.SpellEffect;
-import team.arcanism.Spell.Forms.SelfSpellForm;
-import team.arcanism.Spell.Forms.SpellForm;
-import team.arcanism.Spell.Forms.TouchSpellForm;
+import team.arcanism.Spell.Old.Aspects.FireSpellAspect;
+import team.arcanism.Spell.Old.Aspects.SpellAspect;
+import team.arcanism.Spell.Old.Effects.ImbueSpellEffect;
+import team.arcanism.Spell.Old.Effects.SpellEffect;
+import team.arcanism.Spell.Old.Forms.SelfSpellForm;
+import team.arcanism.Spell.Old.Forms.SpellForm;
+import team.arcanism.Spell.Old.Forms.TouchSpellForm;
 
 public class SpellRegistry {
 

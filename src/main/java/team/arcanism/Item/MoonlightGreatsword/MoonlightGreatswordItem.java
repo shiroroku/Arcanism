@@ -7,11 +7,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.ForgeTier;
+import team.arcanism.ModUtil;
 import team.arcanism.Registry.ItemRegistry;
-import team.arcanism.Spell.Spell;
-import team.arcanism.Spell.SpellRegistry;
+import team.arcanism.Spell.SpellEntity;
 
 public class MoonlightGreatswordItem extends SwordItem {
 	public MoonlightGreatswordItem(Properties prop) {
@@ -23,7 +25,12 @@ public class MoonlightGreatswordItem extends SwordItem {
 
 		player.startUsingItem(hand);
 
-		new Spell(SpellRegistry.Forms.touch, SpellRegistry.Effects.imbue, SpellRegistry.Aspects.fire, 3, 3, 3).cast(player, player.getItemInHand(hand));
+		//new Spell(SpellRegistry.Forms.touch, SpellRegistry.Effects.imbue, SpellRegistry.Aspects.fire, 3, 3, 3).cast(player, player.getItemInHand(hand));
+
+		HitResult result = ModUtil.getPlayerRaycast(level, player, ClipContext.Fluid.SOURCE_ONLY);
+
+		SpellEntity spell = new SpellEntity(level, result.getLocation().x, result.getLocation().y, result.getLocation().z);
+		level.addFreshEntity(spell);
 
 		return super.use(level, player, hand);
 	}

@@ -1,8 +1,8 @@
-package team.arcanism.Spell.Effects;
+package team.arcanism.Spell.Old.Effects;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import team.arcanism.Spell.Aspects.SpellAspect;
+import team.arcanism.Spell.Old.Aspects.SpellAspect;
 
 import java.util.List;
 

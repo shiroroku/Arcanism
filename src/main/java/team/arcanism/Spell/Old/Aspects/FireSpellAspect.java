@@ -1,4 +1,4 @@
-package team.arcanism.Spell.Aspects;
+package team.arcanism.Spell.Old.Aspects;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -12,8 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import team.arcanism.Spell.Effects.SpellEffect;
-import team.arcanism.Spell.SpellRegistry;
+import team.arcanism.Spell.Old.Effects.SpellEffect;
+import team.arcanism.Spell.Old.SpellRegistry;
 
 import java.util.List;
 

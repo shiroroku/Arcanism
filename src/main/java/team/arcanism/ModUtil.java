@@ -115,6 +115,14 @@ public class ModUtil {
 		return entities;
 	}
 
+	public static Vec3 rotateAround(Vec3 point, Vec3 origin, float angle) {
+		double sin = Math.sin(Math.toRadians(angle));
+		double cos = Math.cos(Math.toRadians(angle));
+		float x = (float) (origin.x + (point.x - origin.x) * cos - (point.z - origin.z) * sin);
+		float z = (float) (origin.z + (point.x - origin.x) * sin + (point.z - origin.z) * cos);
+		return new Vec3(x, point.y, z);
+	}
+
 	public static HitResult getPlayerRaycast(Level level, Player player, ClipContext.Fluid clipping) {
 
 		//try entity
