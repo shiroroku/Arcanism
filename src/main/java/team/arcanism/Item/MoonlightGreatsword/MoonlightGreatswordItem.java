@@ -29,7 +29,9 @@ public class MoonlightGreatswordItem extends SwordItem {
 
 		HitResult result = ModUtil.getPlayerRaycast(level, player, ClipContext.Fluid.SOURCE_ONLY);
 
-		SpellEntity spell = new SpellEntity(level, result.getLocation().x, result.getLocation().y, result.getLocation().z);
+		SpellEntity spell = new SpellEntity(level, player.position().x, player.position().y + player.getEyeHeight(), player.position().z);
+		spell.setOwner(player);
+		spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0F, 0.3F, 0.3F);
 		level.addFreshEntity(spell);
 
 		return super.use(level, player, hand);

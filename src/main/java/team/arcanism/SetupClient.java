@@ -23,6 +23,7 @@ import team.arcanism.Item.MoonlightGreatsword.MoonlightGreatswordSwingRenderer;
 import team.arcanism.Particle.StabAttackParticle;
 import team.arcanism.Registry.*;
 import team.arcanism.Render.AetherBarRender;
+import team.arcanism.Spell.SpellExplosionRenderer;
 import team.arcanism.Spell.SpellRenderer;
 
 import java.awt.*;
@@ -71,6 +72,7 @@ public class SetupClient {
 	public static void registerRenderer(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(EntityRegistry.bone_dagger.get(), BoneDaggerRenderer::new);
 		event.registerEntityRenderer(EntityRegistry.spell.get(), SpellRenderer::new);
+		event.registerEntityRenderer(EntityRegistry.spell_explosion.get(), SpellExplosionRenderer::new);
 	}
 
 	@SubscribeEvent

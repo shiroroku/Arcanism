@@ -13,11 +13,12 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 import team.arcanism.Arcanism;
 
 public class SpellRenderer extends EntityRenderer<SpellEntity> {
 	private static final ResourceLocation texture = new ResourceLocation(Arcanism.MODID, "textures/entity/spell.png");
-	private static final RenderType rendertype = RenderType.itemEntityTranslucentCull(texture);
+	private static final RenderType rendertype = RenderType.entityTranslucentCull(texture);
 
 	public SpellRenderer(EntityRendererProvider.Context context) {
 		super(context);
@@ -45,16 +46,16 @@ public class SpellRenderer extends EntityRenderer<SpellEntity> {
 		R = 255;
 		G = 255;
 		B = 255;
-		A = (int) (220f * fade);
+		A = (int) (200f * fade);
 
 		float scale = (spell.getBbWidth() - 0.2f) * fade;
 
-		//Render main
+		//Main
 		stack.pushPose();
 		stack.scale(scale, scale, scale);
 		stack.translate(0, spell.getEyeHeight(), 0);
 		stack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-		stack.mulPose(Vector3f.ZN.rotationDegrees(f8 * 10));
+		stack.mulPose(Vector3f.ZN.rotationDegrees(f8 * 30));
 		stack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
 		VertexConsumer consumer = buf.getBuffer(rendertype);
 		PoseStack.Pose pose = stack.last();
@@ -64,45 +65,53 @@ public class SpellRenderer extends EntityRenderer<SpellEntity> {
 		vertex(consumer, pose.pose(), pose.normal(), 1, 1, R, G, B, A, 0.5f + x, 0, light);
 		vertex(consumer, pose.pose(), pose.normal(), -1, 1, R, G, B, A, 0f + x, 0, light);
 		stack.popPose();
-		//====================================
 
-		//Render particles
+		//Trails
+		float scaledefault = scale;
+		for (int set = 0; set < 2; set++) {
+			scale = scaledefault;
+			if (true) {
+				scale *= 0.5f;
+				for (int p = 2; p < 12; p++) {
+					float p2 = p * 0.4f;
+					float spacing = -3;
+					float freq = 20;
+					float amp = 0.6f;
+					float sin = (float) Math.sin(Math.toRadians((spell.tickCount + partialTick) * freq + (set * 180)) - p2) * p2 * amp;
+					float cos = (float) Math.cos(Math.toRadians((spell.tickCount + partialTick) * freq + (set * 180)) - p2) * p2 * amp;
 
-		scale *= 0.5f;
-		for (int p = 2; p < 12; p++) {
-			float p2 = p * 0.5f;
-			float wave = (float) Math.sin(Math.toRadians(spell.tickCount * 10) - p2) * p2;
+					stack.pushPose();
+					stack.scale(scale, scale, scale);
+					stack.translate(0, spell.getEyeHeight() + 1, 0f);
 
-			stack.pushPose();
-			stack.scale(scale, scale, scale);
-			stack.translate(0, spell.getEyeHeight() + 1, 0f);
+					double distance = (p * spacing);
+					stack.translate(spell.getDeltaMovement().x * distance, (spell.getDeltaMovement().y) * distance - cos, spell.getDeltaMovement().z * distance + sin);
 
-			double distance = (p * -8D);
-			stack.translate(spell.getDeltaMovement().x * distance, (spell.getDeltaMovement().y) * distance + wave, spell.getDeltaMovement().z * distance);
+					stack.mulPose(this.entityRenderDispatcher.cameraOrientation());
+					stack.mulPose(Vector3f.ZP.rotationDegrees(f8 * 10));
+					stack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
 
-			stack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-			stack.mulPose(Vector3f.ZP.rotationDegrees(f8 * 10));
-			stack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+					VertexConsumer consumer2 = buf.getBuffer(rendertype);
+					PoseStack.Pose pose2 = stack.last();
 
-			VertexConsumer consumer2 = buf.getBuffer(RenderType.itemEntityTranslucentCull(texture));
-			PoseStack.Pose pose2 = stack.last();
+					x = p % 2 == 0 ? 0.5f : 0.75f;
+					vertex(consumer2, pose2.pose(), pose2.normal(), -1, -1, R, G, B, A, 0 + x, 0.5f, light);
+					vertex(consumer2, pose2.pose(), pose2.normal(), 1, -1, R, G, B, A, 0.25f + x, 0.5f, light);
+					vertex(consumer2, pose2.pose(), pose2.normal(), 1, 1, R, G, B, A, 0.25f + x, 0, light);
+					vertex(consumer2, pose2.pose(), pose2.normal(), -1, 1, R, G, B, A, 0f + x, 0, light);
 
-			x = 0.5f;
-			vertex(consumer2, pose2.pose(), pose2.normal(), -1, -1, R, G, B, A, 0 + x, 0.5f, light);
-			vertex(consumer2, pose2.pose(), pose2.normal(), 1, -1, R, G, B, A, 0.25f + x, 0.5f, light);
-			vertex(consumer2, pose2.pose(), pose2.normal(), 1, 1, R, G, B, A, 0.25f + x, 0, light);
-			vertex(consumer2, pose2.pose(), pose2.normal(), -1, 1, R, G, B, A, 0f + x, 0, light);
+					stack.popPose();
 
-			stack.popPose();
-
-			scale *= 0.95f;
+					scale *= 0.95f;
+				}
+			}
 		}
 
 		super.render(spell, a, partialTick, stack, buf, light);
 	}
 
-	private static void vertex(VertexConsumer consumer, Matrix4f matrix4, Matrix3f matrix3, float x, float y, int r, int g, int b, int a, float u, float v, int light) {
-		consumer.vertex(matrix4, x, y, 0.0F).color(r, g, b, a).uv(u, v).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(matrix3, 0.0F, 0.0F, 1.0F).endVertex();
+	private void vertex(VertexConsumer consumer, Matrix4f matrix4, Matrix3f matrix3, float x, float y, int r, int g, int b, int a, float u, float v, int light) {
+		consumer.vertex(matrix4, x, y, 0.0F).color(r, g, b, a).uv(u, v).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(matrix3, 0, 0, 1).endVertex();
 	}
 
 	@Override

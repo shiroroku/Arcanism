@@ -1,17 +1,21 @@
 package team.arcanism.Spell;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import team.arcanism.Registry.EntityRegistry;
 
-public class SpellEntity extends Entity {
+public class SpellEntity extends Projectile {
 
 	public int lifetime = 400;
+	public boolean hasCollision = true;
 	public int age;
 
 	public SpellEntity(EntityType<SpellEntity> spell, Level level) {
@@ -23,58 +27,30 @@ public class SpellEntity extends Entity {
 		this.setPos(x, y, z);
 	}
 
-	public SpellEntity(Level level, double x, double y, double z, float size) {
-		super(EntityRegistry.spell.get(), level);
-		this.setPos(x, y, z);
-		lifetime = (int) (lifetime * size);
-	}
-
 	public boolean hasCollison() {
-		return true;
+		return hasCollision;
 	}
 
 	public void tick() {
-		super.tick();
-		this.xo = this.getX();
-		this.yo = this.getY();
-		this.zo = this.getZ();
+		Entity entity = this.getOwner();
+		if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
+			super.tick();
 
-		//children
-		//if (source && this.tickCount % 2 == 1) {
-		//	for (int i = 0; i < random.nextInt(10); i++) {
-		//		double xr = random.nextDouble() * 0.5f - 0.25;
-		//		double yr = random.nextDouble() * 0.5f - 0.25;
-		//		double zr = random.nextDouble() * 0.5f - 0.25;
-		//		SpellEntity childspell = new SpellEntity(level, xo + xr, yo + yr, zo + zr, 0.2f);
-		//		level.addFreshEntity(childspell);
-		//	}
-		//}
+			HitResult hitresult = ProjectileUtil.getHitResult(this, (entity1) -> {return !(entity1 instanceof SpellEntity);});
+			if (hitresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+				this.onHit(hitresult);
+			}
 
-		float wave = (float) Math.sin(Math.toRadians(this.tickCount * 15)) * 0.06f;
-		float wavec = (float) Math.cos(Math.toRadians(this.tickCount * 15)) * 0.06f;
+			this.checkInsideBlocks();
+			Vec3 vec3 = this.getDeltaMovement();
+			double d0 = this.getX() + vec3.x;
+			double d1 = this.getY() + vec3.y;
+			double d2 = this.getZ() + vec3.z;
 
-		this.setDeltaMovement(this.getDeltaMovement().add(0.005f, 0, 0));
-
-		//Gravity
-		if (!this.isNoGravity()) {
-			this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.0001D, 0.0D));
+			this.setPos(d0, d1, d2);
+		} else {
+			this.discard();
 		}
-		//Squish out of block
-		if (hasCollison() && !this.level.noCollision(this.getBoundingBox())) {
-			this.moveTowardsClosestSpace(this.getX(), (this.getBoundingBox().minY + this.getBoundingBox().maxY) / 2.0D, this.getZ());
-		}
-		this.move(MoverType.SELF, this.getDeltaMovement());
-		//Friction
-		float f = 0.98F;
-		if (this.onGround) {
-			BlockPos pos = new BlockPos(this.getX(), this.getY() - 1.0D, this.getZ());
-			f = this.level.getBlockState(pos).getFriction(this.level, pos, this) * 0.98F;
-		}
-		this.setDeltaMovement(this.getDeltaMovement().multiply((double) f, 0.98D, (double) f));
-		if (this.onGround) {
-			this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, -0.9D, 1.0D));
-		}
-
 		//End of life
 		++this.age;
 		if (this.age >= lifetime) {
@@ -95,19 +71,31 @@ public class SpellEntity extends Entity {
 
 	@Override
 	protected void readAdditionalSaveData(CompoundTag tag) {
+		super.readAdditionalSaveData(tag);
 		this.age = tag.getShort("Age");
 		this.lifetime = tag.getShort("Lifetime");
 	}
 
 	@Override
 	protected void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
 		tag.putShort("Age", (short) this.age);
 		tag.putShort("Lifetime", (short) this.lifetime);
 	}
 
 	@Override
-	public net.minecraft.network.protocol.Packet<?> getAddEntityPacket() {
-		return new ClientboundAddEntityPacket(this);
+	protected void onHit(HitResult result) {
+		super.onHit(result);
+		if (result.getType() == HitResult.Type.ENTITY) {
+			if (((EntityHitResult) result).getEntity() == this.getOwner()) {
+				return;
+			}
+		}
+		this.discard();
+		SpellExplosionEntity explosionEntity = new SpellExplosionEntity(level, this.position().x, this.position().y, this.position().z);
+		level.addFreshEntity(explosionEntity);
+		level.explode((Entity) null, this.getX(), this.getY(), this.getZ(), 1.0F, Explosion.BlockInteraction.NONE);
+
 	}
 }
 
