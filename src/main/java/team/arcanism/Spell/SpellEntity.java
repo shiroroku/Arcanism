@@ -1,5 +1,7 @@
 package team.arcanism.Spell;
 
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -36,7 +38,7 @@ public class SpellEntity extends Projectile {
 		if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
 			super.tick();
 
-			HitResult hitresult = ProjectileUtil.getHitResult(this, (entity1) -> {return !(entity1 instanceof SpellEntity);});
+			HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
 			if (hitresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
 				this.onHit(hitresult);
 			}
@@ -46,6 +48,8 @@ public class SpellEntity extends Projectile {
 			double d0 = this.getX() + vec3.x;
 			double d1 = this.getY() + vec3.y;
 			double d2 = this.getZ() + vec3.z;
+
+			//this.level.addParticle(this.getTrailParticle(), d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
 
 			this.setPos(d0, d1, d2);
 		} else {
@@ -57,6 +61,10 @@ public class SpellEntity extends Projectile {
 			this.discard();
 		}
 
+	}
+
+	protected ParticleOptions getTrailParticle() {
+		return ParticleTypes.CRIT;
 	}
 
 	@Override

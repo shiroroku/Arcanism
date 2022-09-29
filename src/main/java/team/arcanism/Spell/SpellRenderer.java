@@ -13,10 +13,10 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import team.arcanism.Arcanism;
 
 public class SpellRenderer extends EntityRenderer<SpellEntity> {
+
 	private static final ResourceLocation texture = new ResourceLocation(Arcanism.MODID, "textures/entity/spell.png");
 	private static final RenderType rendertype = RenderType.entityTranslucentCull(texture);
 
@@ -85,8 +85,34 @@ public class SpellRenderer extends EntityRenderer<SpellEntity> {
 					stack.translate(0, spell.getEyeHeight() + 1, 0f);
 
 					double distance = (p * spacing);
-					stack.translate(spell.getDeltaMovement().x * distance, (spell.getDeltaMovement().y) * distance - cos, spell.getDeltaMovement().z * distance + sin);
 
+					double sinX = spell.getDeltaMovement().x * distance;
+					double vX = Math.abs(spell.getDeltaMovement().normalize().x);
+					double sinY = spell.getDeltaMovement().y * distance;
+					double vY = Math.abs(spell.getDeltaMovement().normalize().y);
+					double sinZ = spell.getDeltaMovement().z * distance;
+					double vZ = Math.abs(spell.getDeltaMovement().normalize().z);
+
+					sinX = sinX + Mth.lerp(vX, sin, 0);
+					sinY = sinY + Mth.lerp(vY, Mth.lerp(vX, cos, sin), 0);
+					sinZ = sinZ + Mth.lerp(vZ, cos, 0);
+
+					stack.translate(sinX, sinY, sinZ);
+
+					//Forwardback
+					// (-1, 0, 0)
+					// (1, 0, 0)
+					//stack.translate(spell.getDeltaMovement().x * distance, spell.getDeltaMovement().y * distance + sin, spell.getDeltaMovement().z * distance + cos);
+
+					//Updown
+					//stack.translate(spell.getDeltaMovement().x * distance + sin, spell.getDeltaMovement().y * distance, spell.getDeltaMovement().z * distance + cos);
+
+					//Leftright
+					// (0, 0, 1)
+					// (0, 0, -1)
+					//stack.translate(spell.getDeltaMovement().x * distance + sin, spell.getDeltaMovement().y * distance + cos, spell.getDeltaMovement().z * distance);
+
+					//System.out.println(spell.getDeltaMovement());
 					stack.mulPose(this.entityRenderDispatcher.cameraOrientation());
 					stack.mulPose(Vector3f.ZP.rotationDegrees(f8 * 10));
 					stack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
