@@ -20,9 +20,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.RecipeMatcher;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import team.arcanism.Arcanism;
@@ -32,6 +32,7 @@ import team.arcanism.Elixir.IElixirIngredient;
 import team.arcanism.Registry.BlockEntityRegistry;
 import team.arcanism.Registry.CapabilityRegistry;
 import team.arcanism.Registry.ItemRegistry;
+import team.arcanism.Registry.RecipeRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -109,7 +110,7 @@ public class MortarPestleBlockEntity extends BlockEntity {
 	}
 
 	public Optional<MortarPestleRecipe> canCraft(Level level) {
-		for (final MortarPestleRecipe recipe : level.getRecipeManager().getAllRecipesFor(MortarPestleRecipe.TYPE)) {
+		for (final MortarPestleRecipe recipe : level.getRecipeManager().getAllRecipesFor(RecipeRegistry.mortar_and_pestle_type.get())) {
 			List<ItemStack> items = new ArrayList<>();
 			List<Ingredient> requirements = recipe.getInputs();
 
@@ -193,7 +194,7 @@ public class MortarPestleBlockEntity extends BlockEntity {
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (cap == ForgeCapabilities.ITEM_HANDLER) {
 			return handler.cast();
 		}
 		return super.getCapability(cap, side);

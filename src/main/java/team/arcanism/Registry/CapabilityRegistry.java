@@ -58,36 +58,36 @@ public class CapabilityRegistry {
 	public static void playerClone(PlayerEvent.Clone event) {
 		Player oldPlayer = event.getOriginal();
 		oldPlayer.revive();
-		getAether(oldPlayer).ifPresent(oldAether -> getAether(event.getPlayer()).ifPresent(newAether -> {
+		getAether(oldPlayer).ifPresent(oldAether -> getAether(event.getEntity()).ifPresent(newAether -> {
 			newAether.setMax(oldAether.getMax());
 			newAether.set(oldAether.get());
 		}));
-		getIngredientKnowledge(oldPlayer).ifPresent(oldKnowledge -> getIngredientKnowledge(event.getPlayer()).ifPresent(knowledge -> knowledge.setKnowledge(oldKnowledge.getKnowledge())));
+		getIngredientKnowledge(oldPlayer).ifPresent(oldKnowledge -> getIngredientKnowledge(event.getEntity()).ifPresent(knowledge -> knowledge.setKnowledge(oldKnowledge.getKnowledge())));
 		event.getOriginal().invalidateCaps();
 	}
 
 	@SubscribeEvent
 	public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-		sendAetherPacket(event.getPlayer());
-		sendIngredientKnowledgePacket(event.getPlayer());
+		sendAetherPacket(event.getEntity());
+		sendIngredientKnowledgePacket(event.getEntity());
 	}
 
 	@SubscribeEvent
 	public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-		sendAetherPacket(event.getPlayer());
-		sendIngredientKnowledgePacket(event.getPlayer());
+		sendAetherPacket(event.getEntity());
+		sendIngredientKnowledgePacket(event.getEntity());
 	}
 
 	@SubscribeEvent
 	public static void onPlayerStartTracking(PlayerEvent.StartTracking event) {
-		sendAetherPacket(event.getPlayer());
-		sendIngredientKnowledgePacket(event.getPlayer());
+		sendAetherPacket(event.getEntity());
+		sendIngredientKnowledgePacket(event.getEntity());
 	}
 
 	@SubscribeEvent
 	public static void onPlayerDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
-		sendAetherPacket(event.getPlayer());
-		sendIngredientKnowledgePacket(event.getPlayer());
+		sendAetherPacket(event.getEntity());
+		sendIngredientKnowledgePacket(event.getEntity());
 	}
 
 	public static void sendAetherPacket(Player player) {

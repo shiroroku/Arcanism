@@ -17,7 +17,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import team.arcanism.Arcanism;
@@ -54,7 +54,7 @@ public class MortarPestleRenderer implements BlockEntityRenderer<MortarPestleBlo
 			VertexConsumer vertexconsumer = material.buffer(bufferSource, RenderType::entitySolid);
 			this.pestle.render(stack, vertexconsumer, p_112311_, p_112312_);
 			stack.popPose();
-			blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> renderItems(handler, blockEntity, ptick, stack, bufferSource, p_112311_, p_112312_));
+			blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> renderItems(handler, blockEntity, ptick, stack, bufferSource, p_112311_, p_112312_));
 		}
 
 	}

@@ -26,6 +26,7 @@ public class Arcanism {
 		BlockEntityRegistry.BLOCK_ENTITIES.register(eventBus);
 		ContainerRegistry.CONTAINERS.register(eventBus);
 		RecipeRegistry.SERIALIZERS.register(eventBus);
+		RecipeRegistry.TYPES.register(eventBus);
 		SoundRegistry.SOUNDS.register(eventBus);
 	}
 

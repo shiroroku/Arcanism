@@ -1,6 +1,7 @@
 package team.arcanism.Compat.JEI;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -14,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,10 +28,9 @@ public class JEIArcaneInfuserCategory implements IRecipeCategory<JEIArcaneInfuse
 	private final IDrawable bg, icon;
 	public static final ResourceLocation screen = new ResourceLocation(Arcanism.MODID, "textures/gui/arcane_infuser_jei.png");
 
-	@SuppressWarnings("removal")
 	public JEIArcaneInfuserCategory(IGuiHelper guihelper) {
 		this.bg = guihelper.createDrawable(screen, 7, 3, 162, 78);
-		this.icon = guihelper.createDrawableIngredient(new ItemStack(BlockRegistry.arcane_infuser.get()));
+		this.icon = guihelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.arcane_infuser.get()));
 	}
 
 	@Override
@@ -55,20 +54,8 @@ public class JEIArcaneInfuserCategory implements IRecipeCategory<JEIArcaneInfuse
 	@Override
 	public void draw(Wrapper recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
 		Font f = Minecraft.getInstance().font;
-		MutableComponent cost = new TranslatableComponent("jei.arcanism.aether_cost", recipe.getAetherCost()).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.WHITE);
+		MutableComponent cost = Component.translatable("jei.arcanism.aether_cost", recipe.getAetherCost()).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.WHITE);
 		f.drawShadow(stack, cost, 125 - (f.width(cost) / 2f), 10, 4210752);
-	}
-
-	@SuppressWarnings("removal")
-	@Override
-	public Class<? extends Wrapper> getRecipeClass() {
-		return null;
-	}
-
-	@SuppressWarnings("removal")
-	@Override
-	public ResourceLocation getUid() {
-		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -79,7 +66,7 @@ public class JEIArcaneInfuserCategory implements IRecipeCategory<JEIArcaneInfuse
 
 	@Override
 	public Component getTitle() {
-		return new TranslatableComponent("block.arcanism.arcane_infuser");
+		return Component.translatable("block.arcanism.arcane_infuser");
 	}
 
 	@Override

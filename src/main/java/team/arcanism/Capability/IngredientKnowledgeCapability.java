@@ -9,6 +9,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.arcanism.Registry.CapabilityRegistry;
@@ -74,7 +75,7 @@ public class IngredientKnowledgeCapability implements IIngredientKnowledge {
 				sTag.putBoolean("knows", knows);
 				iTag.put(String.valueOf(slot), sTag);
 			});
-			tag.put(key.getRegistryName().toString(), iTag);
+			tag.put(ForgeRegistries.ITEMS.getKey(key).toString(), iTag);
 		});
 
 		/*

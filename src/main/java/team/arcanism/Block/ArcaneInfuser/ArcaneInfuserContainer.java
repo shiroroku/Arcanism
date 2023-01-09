@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -24,7 +24,7 @@ public class ArcaneInfuserContainer extends AbstractContainerMenu {
 		blockEntity = playerIn.getCommandSenderWorld().getBlockEntity(pos);
 
 		if (blockEntity != null) {
-			blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+			blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
 				addSlot(new SlotItemHandler(handler, 0, 80, 35));
 				addSlot(new SlotItemHandler(handler, 1, 80, 8));
 				addSlot(new SlotItemHandler(handler, 2, 102, 13));

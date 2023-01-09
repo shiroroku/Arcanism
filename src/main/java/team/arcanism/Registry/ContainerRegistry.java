@@ -10,7 +10,7 @@ import team.arcanism.Block.ArcaneInfuser.ArcaneInfuserContainer;
 
 public class ContainerRegistry {
 
-	public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Arcanism.MODID);
+	public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Arcanism.MODID);
 
 	public static final RegistryObject<MenuType<ArcaneInfuserContainer>> arcanist_workbench = CONTAINERS.register("arcanist_workbench", () -> IForgeMenuType.create((id, playerInv, data) -> new ArcaneInfuserContainer(id, data.readBlockPos(), playerInv, playerInv.player)));
 

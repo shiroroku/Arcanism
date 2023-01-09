@@ -2,7 +2,9 @@ package team.arcanism.Network;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.util.LogicalSidedProvider;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.network.NetworkEvent;
 import team.arcanism.Capability.AetherCapability;
@@ -39,17 +41,19 @@ public class AetherPacket {
 	public static class Handler {
 		public static void onMessageReceived(final AetherPacket message, Supplier<NetworkEvent.Context> ctxSupplier) {
 			NetworkEvent.Context ctx = ctxSupplier.get();
-			LogicalSide sideReceived = ctx.getDirection().getReceptionSide();
+			ctx.enqueueWork(() -> {
+				LogicalSide sideReceived = ctx.getDirection().getReceptionSide();
+				ctx.setPacketHandled(true);
+				if (sideReceived != LogicalSide.CLIENT) {
+					return;
+				}
+				Optional<Level> clientWorld = LogicalSidedProvider.CLIENTWORLD.get(sideReceived);
+				if (clientWorld.isEmpty()) {
+					return;
+				}
+				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> processMessage(clientWorld.get(), message));
+			});
 			ctx.setPacketHandled(true);
-			if (sideReceived != LogicalSide.CLIENT) {
-				return;
-			}
-			Optional<Level> clientWorld = LogicalSidedProvider.CLIENTWORLD.get(sideReceived);
-			if (clientWorld.isEmpty()) {
-				return;
-			}
-
-			ctx.enqueueWork(() -> processMessage(clientWorld.get(), message));
 		}
 
 		private static void processMessage(Level worldClient, AetherPacket message) {

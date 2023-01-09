@@ -1,5 +1,6 @@
 package team.arcanism.Spell;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -35,7 +36,7 @@ public class SpellEntity extends Projectile {
 
 	public void tick() {
 		Entity entity = this.getOwner();
-		if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
+		if (this.level.isClientSide || (entity == null || entity.isAlive()) && this.level.hasChunkAt(new BlockPos(this.position()))) {
 			super.tick();
 
 			HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);

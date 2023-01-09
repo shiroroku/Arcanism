@@ -1,9 +1,6 @@
 package team.arcanism;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -38,11 +35,11 @@ public class SetupClient {
 		MinecraftForge.EVENT_BUS.addListener(MoonlightGreatswordSwingRenderer::onRenderHandEvent);
 		MinecraftForge.EVENT_BUS.addListener(MoonlightGreatswordSwingRenderer::onRenderPlayerEvent);
 		event.enqueueWork(() -> {
-			ItemBlockRenderTypes.setRenderLayer(BlockRegistry.blackwood_trapdoor.get(), RenderType.cutout());
-			ItemBlockRenderTypes.setRenderLayer(BlockRegistry.blackwood_door.get(), RenderType.cutout());
-			ItemBlockRenderTypes.setRenderLayer(ItemRegistry.blightshade.get(), RenderType.cutout());
-			ItemBlockRenderTypes.setRenderLayer(ItemRegistry.blazel.get(), RenderType.cutout());
-			ItemBlockRenderTypes.setRenderLayer(ItemRegistry.wise_hazel.get(), RenderType.cutout());
+			//			ItemBlockRenderTypes.setRenderLayer(BlockRegistry.blackwood_trapdoor.get(), RenderType.cutout());
+			//			ItemBlockRenderTypes.setRenderLayer(BlockRegistry.blackwood_door.get(), RenderType.cutout());
+			//			ItemBlockRenderTypes.setRenderLayer(ItemRegistry.blightshade.get(), RenderType.cutout());
+			//			ItemBlockRenderTypes.setRenderLayer(ItemRegistry.blazel.get(), RenderType.cutout());
+			//			ItemBlockRenderTypes.setRenderLayer(ItemRegistry.wise_hazel.get(), RenderType.cutout());
 
 			MenuScreens.register(ContainerRegistry.arcanist_workbench.get(), ArcaneInfuserScreen::new);
 
@@ -76,8 +73,8 @@ public class SetupClient {
 	}
 
 	@SubscribeEvent
-	public static void onItemColorHandler(ColorHandlerEvent.Item event) {
-		event.getItemColors().register((stack, tintIndex) -> {
+	public static void onItemColorHandler(RegisterColorHandlersEvent.Item event) {
+		event.register((stack, tintIndex) -> {
 			if (tintIndex == 0) {
 				//AtomicInteger badEffectCount = new AtomicInteger();
 				AtomicReference<Color> mixedColor = new AtomicReference<>();
@@ -113,11 +110,11 @@ public class SetupClient {
 	}
 
 	@SubscribeEvent
-	public static void registerParticles(ParticleFactoryRegisterEvent event) {
-		Minecraft.getInstance().particleEngine.register(ParticleRegistry.stab_attack.get(), StabAttackParticle.Provider::new);
+	public static void registerParticles(RegisterParticleProvidersEvent event) {
+		event.register(ParticleRegistry.stab_attack.get(), StabAttackParticle.Provider::new);
 	}
 
-	public static void onRenderGameOverlay(RenderGameOverlayEvent.Pre e) {
+	public static void onRenderGameOverlay(RenderGuiOverlayEvent.Pre e) {
 		AetherBarRender.render(e);
 	}
 }

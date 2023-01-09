@@ -11,14 +11,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import team.arcanism.Registry.RecipeRegistry;
 
 import javax.annotation.Nullable;
 
 public class MortarPestleRecipe implements Recipe<Container> {
-
-	public static final RecipeType<MortarPestleRecipe> TYPE = RecipeType.register("mortar_and_pestle");
-	public static final Serializer SERIALIZER = new Serializer();
 
 	private final ResourceLocation ID;
 	private final NonNullList<Ingredient> inputs;
@@ -65,15 +62,15 @@ public class MortarPestleRecipe implements Recipe<Container> {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return SERIALIZER;
+		return RecipeRegistry.mortar_and_pestle.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return TYPE;
+		return RecipeRegistry.mortar_and_pestle_type.get();
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<MortarPestleRecipe> {
+	public static class Serializer implements RecipeSerializer<MortarPestleRecipe> {
 
 		@Override
 		public MortarPestleRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

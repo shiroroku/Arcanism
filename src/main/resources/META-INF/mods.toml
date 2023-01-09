@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[40,)"
+loaderVersion = "[43,)"
 license = "MIT"
 [[mods]]
     modId = "arcanism"
@@ -12,27 +12,27 @@ license = "MIT"
 [[dependencies.arcanism]]
     modId = "forge"
     mandatory = true
-    versionRange = "[40,)"
+    versionRange = "[43,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.arcanism]]
     modId = "minecraft"
     mandatory = true
-    versionRange = "[1.18.2,1.19)"
+    versionRange = "[1.19,1.19.2)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.arcanism]]
     modId = "patchouli"
     mandatory = true
-    versionRange = "[1.18.2-67,)"
+    versionRange = "[1.19.2-77,)"
     ordering = "AFTER"
     side = "BOTH"
 
 [[dependencies.arcanism]]
     modId="curios"
     mandatory=true
-    versionRange="[1.18.2-5.0.7.1,)"
+    versionRange="[1.19.2-5.1.1.0,)"
     ordering = "AFTER"
     side = "BOTH"

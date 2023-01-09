@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import team.arcanism.Arcanism;
 
 public class ArcaneInfuserRenderer implements BlockEntityRenderer<ArcaneInfuserBlockEntity> {
@@ -35,7 +35,7 @@ public class ArcaneInfuserRenderer implements BlockEntityRenderer<ArcaneInfuserB
 			stack.translate(0.5D, 1.03125, 0.5D);
 			stack.scale(0.5F, 0.5F, 0.5F);
 			stack.mulPose(Vector3f.XP.rotationDegrees(90));
-			infuser.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+			infuser.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
 				Minecraft.getInstance().getItemRenderer().renderStatic(handler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, overlay, light, stack, bufferSource, light);
 			});
 			stack.popPose();

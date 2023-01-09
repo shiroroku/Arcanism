@@ -55,7 +55,7 @@ public class ElixirUtil {
 		slot = 1;
 		for (Map.Entry<MobEffect, Tuple<Integer, Integer>> ingredient : elixirEffects.entrySet()) {
 			CompoundTag iTag = new CompoundTag();
-			iTag.putString("effect", ingredient.getKey().getRegistryName().toString());
+			iTag.putString("effect", ForgeRegistries.MOB_EFFECTS.getKey(ingredient.getKey()).toString());
 			iTag.putInt("potency", ingredient.getValue().getA());
 			iTag.putInt("duration", ingredient.getValue().getB());
 

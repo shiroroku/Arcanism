@@ -3,8 +3,6 @@ package team.arcanism.Elixir;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -71,7 +69,7 @@ public class ElixirItem extends Item {
 			String formatted = String.format("%d:%02d", (seconds % 3600) / 60, seconds = seconds % 60);
 			String duration = mobEffect.isInstantenous() ? "" : " (" + formatted + ")";
 			String potency = values.getA() > 1 ? " " + values.getA() : "";
-			tooltip.add(new TextComponent("- ").append(new TranslatableComponent(mobEffect.getDescriptionId())).append(potency + duration).withStyle(mobEffect.isBeneficial() ? ChatFormatting.BLUE : ChatFormatting.RED));
+			tooltip.add(Component.literal("- ").append(Component.translatable(mobEffect.getDescriptionId())).append(potency + duration).withStyle(mobEffect.isBeneficial() ? ChatFormatting.BLUE : ChatFormatting.RED));
 		});
 	}
 

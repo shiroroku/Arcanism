@@ -44,13 +44,13 @@ public class PlantGeneration {
 	}
 
 	public static void registerPlantGeneration() {
-		Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> wise_hazel = register(new ResourceLocation(Arcanism.MODID, "wise_hazel"), getWildCropConfiguration(ItemRegistry.wise_hazel.get(), 32, 8, BlockPredicate.matchesTag(BlockTags.DIRT, new BlockPos(0, -1, 0))));
+		Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> wise_hazel = register(new ResourceLocation(Arcanism.MODID, "wise_hazel"), getWildCropConfiguration(ItemRegistry.wise_hazel.get(), 32, 8, BlockPredicate.matchesTag(BlockTags.DIRT)));
 		wise_hazel_patch = registerPlacement(new ResourceLocation("wise_hazel"), wise_hazel, RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
-		Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> blazel = register(new ResourceLocation(Arcanism.MODID, "blazel"), getWildCropConfiguration(ItemRegistry.blazel.get(), 32, 8, BlockPredicate.matchesTag(BlockTags.DIRT, new BlockPos(0, -1, 0))));
+		Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> blazel = register(new ResourceLocation(Arcanism.MODID, "blazel"), getWildCropConfiguration(ItemRegistry.blazel.get(), 32, 8, BlockPredicate.matchesTag(BlockTags.DIRT)));
 		blazel_patch = registerPlacement(new ResourceLocation("blazel"), blazel, RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
-		Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> blightshade = register(new ResourceLocation(Arcanism.MODID, "blightshade"), getWildCropConfiguration(ItemRegistry.blightshade.get(), 32, 8, BlockPredicate.matchesTag(BlockTags.DIRT, new BlockPos(0, -1, 0))));
+		Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> blightshade = register(new ResourceLocation(Arcanism.MODID, "blightshade"), getWildCropConfiguration(ItemRegistry.blightshade.get(), 32, 8, BlockPredicate.matchesTag(BlockTags.DIRT)));
 		blightshade_patch = registerPlacement(new ResourceLocation("blightshade"), blightshade, RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 	}
 }

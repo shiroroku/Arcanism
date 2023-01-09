@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import team.arcanism.Arcanism;
 import team.arcanism.Capability.IAether;
 import team.arcanism.Registry.CapabilityRegistry;
@@ -21,7 +21,7 @@ public class AetherBarRender {
 	private static float time = 0;
 	private static float fade_timer = 0;
 
-	public static void render(RenderGameOverlayEvent.Pre e) {
+	public static void render(RenderGuiOverlayEvent.Pre e) {
 		Minecraft client = Minecraft.getInstance();
 		IAether cap = CapabilityRegistry.getAether(client.player).orElse(null);
 		if (cap == null) {
@@ -43,7 +43,7 @@ public class AetherBarRender {
 		}
 
 		if (fade_timer > 0) {
-			PoseStack stack = e.getMatrixStack();
+			PoseStack stack = e.getPoseStack();
 
 			int width = 44;
 			int height = 182;

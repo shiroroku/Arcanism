@@ -1,5 +1,6 @@
 package team.arcanism.Compat.JEI;
 
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -8,7 +9,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -25,7 +25,7 @@ public class JEIMortarPestleCategory implements IRecipeCategory<JEIMortarPestleC
 	@SuppressWarnings("removal")
 	public JEIMortarPestleCategory(IGuiHelper guihelper) {
 		this.bg = guihelper.createDrawable(screen, 0, 0, 162, 92);
-		this.icon = guihelper.createDrawableIngredient(new ItemStack(BlockRegistry.mortar_and_pestle.get()));
+		this.icon = guihelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.mortar_and_pestle.get()));
 	}
 
 	@Override
@@ -48,18 +48,6 @@ public class JEIMortarPestleCategory implements IRecipeCategory<JEIMortarPestleC
 
 	}
 
-	@SuppressWarnings("removal")
-	@Override
-	public Class<? extends Wrapper> getRecipeClass() {
-		return null;
-	}
-
-	@SuppressWarnings("removal")
-	@Override
-	public ResourceLocation getUid() {
-		return null;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public RecipeType<Wrapper> getRecipeType() {
@@ -68,7 +56,7 @@ public class JEIMortarPestleCategory implements IRecipeCategory<JEIMortarPestleC
 
 	@Override
 	public Component getTitle() {
-		return new TranslatableComponent("block.arcanism.mortar_and_pestle");
+		return Component.translatable("block.arcanism.mortar_and_pestle");
 	}
 
 	@Override

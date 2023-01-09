@@ -1,10 +1,12 @@
 buildscript {
     repositories {
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
     dependencies {
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath 'org.parchmentmc:librarian:1.+'
     }
 }
 
@@ -13,9 +15,10 @@ plugins {
 }
 
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 group = 'team'
-version = '1.18.2-0.54'
+version = '0.6'
 
 java {
     archivesBaseName = 'arcanism'
@@ -23,7 +26,7 @@ java {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: 'parchment', version: '1.19.2-2022.11.27-1.19.2'
     runs {
         client {
             workingDirectory project.file('run')
@@ -102,16 +105,17 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.62'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.0'
 
-    compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.+:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.+")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.2-77:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.2-77")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
+    compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:11.5.0.+")
+    compileOnly fg.deobf("mezz.jei:jei-1.19.2-forge-api:11.5.0.+")
+    runtimeOnly(fg.deobf("mezz.jei:jei-1.19.2-forge:11.5.0.+"))
 
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

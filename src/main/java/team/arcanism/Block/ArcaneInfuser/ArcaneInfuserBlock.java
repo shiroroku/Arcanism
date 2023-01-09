@@ -3,7 +3,6 @@ package team.arcanism.Block.ArcaneInfuser;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -59,7 +58,7 @@ public class ArcaneInfuserBlock extends Block implements EntityBlock {
 					MenuProvider menuProvider = new MenuProvider() {
 						@Override
 						public Component getDisplayName() {
-							return new TranslatableComponent("block.arcanism.arcane_infuser");
+							return Component.translatable("block.arcanism.arcane_infuser");
 						}
 
 						@Override
@@ -67,7 +66,7 @@ public class ArcaneInfuserBlock extends Block implements EntityBlock {
 							return new ArcaneInfuserContainer(id, pos, playerInventory, player);
 						}
 					};
-					NetworkHooks.openGui((ServerPlayer) player, menuProvider, infuser.getBlockPos());
+					NetworkHooks.openScreen((ServerPlayer) player, menuProvider, infuser.getBlockPos());
 				}
 			}
 		}

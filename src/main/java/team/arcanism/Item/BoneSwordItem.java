@@ -20,7 +20,7 @@ public class BoneSwordItem extends SwordItem {
 
 	public boolean hurtEnemy(ItemStack stack, LivingEntity hurt, LivingEntity attacker) {
 		int range = 4;
-		List<LivingEntity> entities = attacker.level.getEntitiesOfClass(LivingEntity.class, attacker.getBoundingBox().inflate(range));
+		List<LivingEntity> entities = attacker.level.getEntitiesOfClass(LivingEntity.class, attacker.getBoundingBoxForCulling().inflate(range));
 		for (LivingEntity e : entities) {
 			if (e.distanceToSqr(attacker) < range * range && e != hurt && e != attacker && !e.isAlliedTo(attacker)) {
 				Vec3 vec3 = attacker.getViewVector(1.0F).normalize();

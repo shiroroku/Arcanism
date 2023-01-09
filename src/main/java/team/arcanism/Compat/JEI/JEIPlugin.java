@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -17,10 +18,13 @@ import team.arcanism.Block.ArcaneInfuser.ArcaneInfuserRecipe;
 import team.arcanism.Block.ArcaneInfuser.ArcaneInfuserScreen;
 import team.arcanism.Block.MortarPestle.MortarPestleRecipe;
 import team.arcanism.Registry.BlockRegistry;
+import team.arcanism.Registry.ContainerRegistry;
 import team.arcanism.Registry.ItemRegistry;
+import team.arcanism.Registry.RecipeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SuppressWarnings("unchecked")
 @JeiPlugin
@@ -56,7 +60,7 @@ public class JEIPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registry) {
-		registry.addRecipeTransferHandler(ArcaneInfuserContainer.class, arcane_infuser, 0, 9, 10, 35);
+		registry.addRecipeTransferHandler(ArcaneInfuserContainer.class, null, arcane_infuser, 0, 9, 10, 35);
 	}
 
 	@Override
@@ -66,7 +70,7 @@ public class JEIPlugin implements IModPlugin {
 
 	private List<JEIArcaneInfuserCategory.Wrapper> convertInfuserRecipes() {
 		List<JEIArcaneInfuserCategory.Wrapper> recipesconverted = new ArrayList<>();
-		for (final ArcaneInfuserRecipe recipe : Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ArcaneInfuserRecipe.TYPE)) {
+		for (final ArcaneInfuserRecipe recipe : Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(RecipeRegistry.arcane_infuser_type.get())) {
 			recipesconverted.add(new JEIArcaneInfuserCategory.Wrapper(recipe.getInputs(), recipe.getOutput(), recipe.getAetherCost()));
 		}
 		return recipesconverted;
@@ -74,7 +78,7 @@ public class JEIPlugin implements IModPlugin {
 
 	private List<JEIMortarPestleCategory.Wrapper> convertMortarRecipes() {
 		List<JEIMortarPestleCategory.Wrapper> recipesconverted = new ArrayList<>();
-		for (final MortarPestleRecipe recipe : Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(MortarPestleRecipe.TYPE)) {
+		for (final MortarPestleRecipe recipe : Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(RecipeRegistry.mortar_and_pestle_type.get())) {
 			recipesconverted.add(new JEIMortarPestleCategory.Wrapper(recipe.getInputs(), recipe.getOutput()));
 		}
 

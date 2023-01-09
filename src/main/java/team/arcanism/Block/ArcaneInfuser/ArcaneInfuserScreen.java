@@ -6,7 +6,6 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,7 +28,7 @@ public class ArcaneInfuserScreen extends AbstractContainerScreen<ArcaneInfuserCo
 
 	@Override
 	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-		TranslatableComponent text = new TranslatableComponent("block.arcanism.arcane_infuser");
+		//TranslatableComponent text = new TranslatableComponent("block.arcanism.arcane_infuser");
 		//drawString(matrixStack, Minecraft.getInstance().font, text, this.imageWidth / 2 - Minecraft.getInstance().font.width(text) / 2, 8, 0xfff699);
 	}
 

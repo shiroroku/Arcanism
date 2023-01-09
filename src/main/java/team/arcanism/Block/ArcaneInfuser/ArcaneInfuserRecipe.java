@@ -11,14 +11,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import team.arcanism.Registry.RecipeRegistry;
 
 import javax.annotation.Nullable;
 
 public class ArcaneInfuserRecipe implements Recipe<Container> {
-
-	public static final RecipeType<ArcaneInfuserRecipe> TYPE = RecipeType.register("arcane_infuser");
-	public static final Serializer SERIALIZER = new Serializer();
 
 	private final ResourceLocation ID;
 	private final NonNullList<Ingredient> inputs;
@@ -71,15 +68,15 @@ public class ArcaneInfuserRecipe implements Recipe<Container> {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return SERIALIZER;
+		return RecipeRegistry.arcane_infuser.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return TYPE;
+		return RecipeRegistry.arcane_infuser_type.get();
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ArcaneInfuserRecipe> {
+	public static class Serializer implements RecipeSerializer<ArcaneInfuserRecipe> {
 
 		@Override
 		public ArcaneInfuserRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

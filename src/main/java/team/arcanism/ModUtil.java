@@ -15,7 +15,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
@@ -46,7 +46,7 @@ public class ModUtil {
 	}
 
 	public static void dropItemHandlerInWorld(BlockEntity block) {
-		block.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+		block.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
 			for (int i = 0; i < handler.getSlots(); i++) {
 				ItemEntity outputEntity = new ItemEntity(block.getLevel(), block.getBlockPos().getX() + 0.5f, block.getBlockPos().getY() + 0.5f, block.getBlockPos().getZ() + 0.5f, handler.getStackInSlot(i));
 				block.getLevel().addFreshEntity(outputEntity);
@@ -130,7 +130,7 @@ public class ModUtil {
 		double reach = player.getReachDistance();
 		Vec3 vec35 = player.getViewVector(1.0F).scale((double) player.getReachDistance());
 		Vec3 vec32 = eyePos.add(vec35);
-		AABB aabb = player.getBoundingBox().expandTowards(vec35).inflate(1.0D);
+		AABB aabb = player.getBoundingBoxForCulling().expandTowards(vec35).inflate(1.0D);
 		Predicate<Entity> predicate = (entity) -> {
 			return !entity.isSpectator() && entity.isPickable();
 		};

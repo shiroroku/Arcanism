@@ -10,7 +10,7 @@ import team.arcanism.Block.MortarPestle.MortarPestleBlockEntity;
 
 public class BlockEntityRegistry {
 
-	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Arcanism.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Arcanism.MODID);
 
 	public static final RegistryObject<BlockEntityType<ArcaneInfuserBlockEntity>> arcane_infuser = BLOCK_ENTITIES.register("arcane_infuser", () -> BlockEntityType.Builder.of(ArcaneInfuserBlockEntity::new, BlockRegistry.arcane_infuser.get()).build(null));
 	public static final RegistryObject<BlockEntityType<MortarPestleBlockEntity>> mortar_and_pestle = BLOCK_ENTITIES.register("mortar_and_pestle", () -> BlockEntityType.Builder.of(MortarPestleBlockEntity::new, BlockRegistry.mortar_and_pestle.get()).build(null));

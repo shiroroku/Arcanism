@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.Nullable;
 import team.arcanism.ModUtil;
 import team.arcanism.Registry.BlockEntityRegistry;
@@ -37,7 +37,7 @@ public class MortarPestleBlock extends Block implements EntityBlock {
 		if (level.getBlockEntity(pos) instanceof MortarPestleBlockEntity mortar && !level.isClientSide && mortar.spinTime <= 0) {
 			if (player.getItemInHand(hand).isEmpty()) {
 				if (player.isCrouching()) {
-					mortar.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+					mortar.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
 						for (int i = handler.getSlots() - 1; i >= 0; i--) {
 							if (!handler.getStackInSlot(i).isEmpty()) {
 								ItemEntity outputEntity = new ItemEntity(level, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, handler.extractItem(i, 1, false));
@@ -55,7 +55,7 @@ public class MortarPestleBlock extends Block implements EntityBlock {
 					}
 				}
 			} else {
-				mortar.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+				mortar.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
 					for (int i = 0; i < handler.getSlots(); i++) {
 						if (handler.getStackInSlot(i).isEmpty()) {
 							player.setItemInHand(hand, handler.insertItem(i, player.getItemInHand(hand).copy(), false));
